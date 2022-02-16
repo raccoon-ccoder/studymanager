@@ -1,0 +1,106 @@
+@import "reset.css";
+@import "variables.css";
+@import "components/icon.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.body {
+    background-color: var(--purple);
+    padding: var(--base-space);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.inner {
+    width: 100%;
+    height: 100%;
+    max-width: 1130px;
+    min-width: 600px; /* 나중에 수정 */
+    max-height: 800px;
+    min-height: 500px;
+    margin: 0 auto;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+}
+
+.header__info {
+    width: 85px;
+}
+
+.header__user {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.header__profile {
+    width: 50px;
+    height: 50px;
+}
+
+.header__clock {
+    border: 2px solid var(--light-brown);
+    border-radius: 8px;
+    color: var(--light-brown);
+    padding: 2px 4px;;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__time {
+    font-size: 15px;
+    font-weight: 700;
+}
