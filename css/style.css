@@ -42,8 +42,8 @@
 }
 
 .body {
-    background-color: var(--purple);
-    padding: var(--base-space);
+    background-color: var(--black);
+    padding: var(--mobile-base-space);
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -56,44 +56,40 @@
 .inner {
     width: 100%;
     height: 100%;
-    max-width: 1130px;
-    min-width: 600px; /* 나중에 수정 */
-    max-height: 800px;
-    min-height: 500px;
     margin: 0 auto;
 }
 
 .header {
     width: 100%;
-    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    width: 70px;
-    height: 70px;
+
 }
 
 .header__info {
-    width: 85px;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
 }
 
 .header__user {
-    text-align: center;
-    margin-bottom: 10px;
+
 }
 
 .header__profile {
-    width: 50px;
-    height: 50px;
+
 }
 
 .header__clock {
-    border: 2px solid var(--light-brown);
+    border: 2px solid var(--light-yellow);
     border-radius: 8px;
-    color: var(--light-brown);
+    color: var(--light-yellow);
     padding: 2px 4px;;
     display: flex;
     justify-content: space-between;
@@ -103,4 +99,121 @@
 .header__time {
     font-size: 15px;
     font-weight: 700;
+}
+
+.main {
+    width: 100%;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.card-main {
+    width: 100%;
+    border-radius: 20px;
+    background-color: var(--gray);
+    margin-bottom: var(--mobile-base-space);
+}
+
+.card-main__user {
+    background-color: var(--yellow);
+    height: 80px;
+    color: #f7efe2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 80px;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.card-main__title {
+    width: 30%;
+    height: 100%;
+    color: var(--light-gray);
+    font-size: 13px;
+}
+
+.card-main__time {
+    width: 70%;
+    color: var(--black);
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.card-main__hour {
+    margin-right: 10px;
+}
+
+.card-main__list {
+    height: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    line-height: 50px;
+}
+
+.card-main__item {
+    color: var(--light-gray);
+    cursor: pointer;
+}
+
+.card-list {
+    height: 350px;
+    width: 100%;
+}
+
+.card-item {
+    width: 100%;
+    height: 85px;
+    margin-bottom: var(--mobile-base-space);
+    background-color: var( --gray);
+    border-radius: 20px;
+    padding: 8px 20px;
+    box-sizing: border-box;
+}
+
+.card-item__title {
+    color: #f7efe2;
+    opacity: 0.5;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.card-item__middle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 5px 0;
+    box-sizing: border-box;
+}
+
+.card-item__time {
+}
+
+.card-item__now {
+    font-size: 20px;
+    font-weight: 600;
+    color: #f7efe2;
+}
+
+.round-icon {
+    color: var(--yellow);
+}
+
+.dots {
+    color: var(--light-gray);
+}
+
+.card-item__previous {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--light-gray);
+}
+
+.card-item__plus {
+    border: 3px solid var(--light-gray);
+    text-align: center;
+    vertical-align: ce;
 }

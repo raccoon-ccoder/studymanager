@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f98d5103ee.js" crossorigin="anonymous"></script>    
     <title>studymanager</title>
 </head>
@@ -30,13 +29,111 @@
             </div>
         </header>
 
-        <main>
-           <section class="plan-main"></section>
+        <main class="main">
+           <section class="card-main">
+               <article class="card-main__user">
+                   <p class="card-main__title">Total Time</p>
+            
+                   <div class="card-main__time">
+                       <span class="card-main__hour">13h</span>
+                       <span class="card-main__minute">31m</span>
+                   </div>
+               </article>
+               
+               <ul class="card-main__list">
+                   <li class="card-main__item">Daliy</li>
+                   <li class="card-main__item">Weekly</li>
+                   <li class="card-main__item">Monthly</li>
+               </ul>
+           </section>
 
-           <section class="plan-main__items"></section>
+           <section class="card-list">
+                <article class="card-item">
+                    <div class="card-item__top">
+                        <h3 class="card-item__title">자바스크립트 공부</h3>
+                    </div>
+
+                    <div class="card-item__middle">
+                        <div class="card-item__time">
+                            <span class="card-item__now">5h 32m</span>
+                        </div>
+                        <div class="card-item__icons">
+                            <span class="material-icons-outlined round-icon">play_circle</span>                                
+                            <span class="material-icons dots">more_vert</span>
+                        </div>
+                    </div>
+
+                    <div class="card-item__bottom">
+                        <span class="card-item__previous">Previous - 2h 35m</span>
+                    </div>
+                </article>
+
+                <article class="card-item">
+                    <div class="card-item__top">
+                        <h3 class="card-item__title">자바스크립트 공부</h3>
+                    </div>
+
+                    <div class="card-item__middle">
+                        <div class="card-item__time">
+                            <span class="card-item__now">3h 45m</span>
+                        </div>
+                        <div class="card-item__icons">
+                            <span class="material-icons-outlined round-icon">play_circle</span>                                
+                            <span class="material-icons dots">more_vert</span>
+                        </div>
+                    </div>
+
+                    <div class="card-item__bottom">
+                        <span class="card-item__previous">Previous - 0h 30m</span>
+                    </div>
+                </article>
+
+                <article class="card-item">
+                    <div class="card-item__top">
+                        <h3 class="card-item__title">자바스크립트 공부</h3>
+                    </div>
+
+                    <div class="card-item__middle">
+                        <div class="card-item__time">
+                            <span class="card-item__now">11h 20m</span>
+                        </div>
+                        <div class="card-item__icons">
+                            <span class="material-icons-outlined round-icon">play_circle</span>                                
+                            <span class="material-icons dots">more_vert</span>
+                        </div>
+                    </div>
+
+                    <div class="card-item__bottom">
+                        <span class="card-item__previous">Previous - 8h 24m</span>
+                    </div>
+                </article>
+
+                <article class="card-item card-item__plus">
+                    <span class="material-icons-outlined card-item__plus-button">add_circle_outline</span>
+                    <!-- <div class="a">
+                        <span class="material-icons-outlined">add_circle_outline</span>
+                    </div> -->
+                </article>
+           </section>
         </main>
 
-        <footer></footer>
+        <footer class="footer">
+            <section class="footer-music">
+                <div class="footer-music__player">
+                    <div class="footer-music__icons">
+                        <span class="material-icons">skip_previous</span>
+                        <span class="material-icons">play_circle_filled</span>   
+                        <span class="material-icons">skip_next</span>
+                    </div>     
+                    <div class="footer-nusic__volume">
+                        <input type="range" min="0" max="100" value="50">
+                    </div>
+                </div>
+                <div class="footer-music__text">
+                    <span class="footer-music__name">빅마마 - 체념</span>
+                </div>
+            </section>
+        </footer>
     </div>
 </body>
 </html>

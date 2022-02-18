@@ -1,8 +1,12 @@
 :root {
     /* color*/
-    --purple: #352A49;
-    --light-brown: #9A7E7D;
+    --black: #1e2025;
+    --light-yellow: #ffef7d;
+    --yellow: #ffcc3b;
+    --gray: #262a30;
+    --light-gray: #4f5258;
+
 
     /* size */
-    --base-space: 50px;
+    --mobile-base-space: 20px;
 }
