@@ -1,5 +1,5 @@
 :root {
-    /* color*/
+    /* Colors */
     --black: #1e2025;
     --light-yellow: #ffef7d;
     --yellow: #ffcc3b;
@@ -8,7 +8,7 @@
     --white: #f7efe2;
 
 
-    /* size */
+    /* Sizes */
     --mobile-base-space: 1.25rem;
     --card-radius: 20px;
 }
