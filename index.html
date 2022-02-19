@@ -7,18 +7,18 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f98d5103ee.js" crossorigin="anonymous"></script>    
-    <title>studymanager</title>
+    <title>Studymanager</title>
 </head>
 <body class="body">
     <div class="inner">
 
         <header class="header">
             <div class="header__logo">
-                <img src="img/cat.jpeg" class="logo icon">
+                <img src="img/cat.jpeg" class="header__icon icon">
             </div>
             <div class="header__info">
                 <div class="header__user">
-                    <img src="img/staring-cat.jpeg" class="header__profile icon">
+                    <img src="img/staring-cat.jpeg" class="header__icon icon">
                 </div>
                 <div class="header__clock">
                     <span class="material-icons">
@@ -33,13 +33,11 @@
            <section class="card-main">
                <article class="card-main__user">
                    <p class="card-main__title">Total Time</p>
-            
                    <div class="card-main__time">
                        <span class="card-main__hour">13h</span>
                        <span class="card-main__minute">31m</span>
                    </div>
                </article>
-               
                <ul class="card-main__list">
                    <li class="card-main__item">Daliy</li>
                    <li class="card-main__item">Weekly</li>
@@ -52,7 +50,6 @@
                     <div class="card-item__top">
                         <h3 class="card-item__title">자바스크립트 공부</h3>
                     </div>
-
                     <div class="card-item__middle">
                         <div class="card-item__time">
                             <span class="card-item__now">5h 32m</span>
@@ -62,7 +59,6 @@
                             <span class="material-icons dots">more_vert</span>
                         </div>
                     </div>
-
                     <div class="card-item__bottom">
                         <span class="card-item__previous">Previous - 2h 35m</span>
                     </div>
@@ -72,7 +68,6 @@
                     <div class="card-item__top">
                         <h3 class="card-item__title">자바스크립트 공부</h3>
                     </div>
-
                     <div class="card-item__middle">
                         <div class="card-item__time">
                             <span class="card-item__now">3h 45m</span>
@@ -82,7 +77,6 @@
                             <span class="material-icons dots">more_vert</span>
                         </div>
                     </div>
-
                     <div class="card-item__bottom">
                         <span class="card-item__previous">Previous - 0h 30m</span>
                     </div>
@@ -92,7 +86,6 @@
                     <div class="card-item__top">
                         <h3 class="card-item__title">자바스크립트 공부</h3>
                     </div>
-
                     <div class="card-item__middle">
                         <div class="card-item__time">
                             <span class="card-item__now">11h 20m</span>
@@ -102,17 +95,13 @@
                             <span class="material-icons dots">more_vert</span>
                         </div>
                     </div>
-
                     <div class="card-item__bottom">
                         <span class="card-item__previous">Previous - 8h 24m</span>
                     </div>
                 </article>
 
                 <article class="card-item card-item__plus">
-                    <span class="material-icons-outlined card-item__plus-button">add_circle_outline</span>
-                    <!-- <div class="a">
-                        <span class="material-icons-outlined">add_circle_outline</span>
-                    </div> -->
+                    <span class="card-item__plus--button material-icons-outlined material-icons md-36">add_circle_outline</span>
                 </article>
            </section>
         </main>
@@ -120,20 +109,37 @@
         <footer class="footer">
             <section class="footer-music">
                 <div class="footer-music__player">
-                    <div class="footer-music__icons">
-                        <span class="material-icons">skip_previous</span>
-                        <span class="material-icons">play_circle_filled</span>   
-                        <span class="material-icons">skip_next</span>
-                    </div>     
-                    <div class="footer-nusic__volume">
-                        <input type="range" min="0" max="100" value="50">
-                    </div>
+                    <span class="material-icons-outlined player-icon">skip_previous</span>
+                    <span class="material-icons-outlined player-icon">play_arrow</span>
+                    <span class="material-icons-outlined player-icon">skip_next</span>
+                    <input type="range" min="0" max="100" value="50" class="footer-music__volume">
                 </div>
                 <div class="footer-music__text">
                     <span class="footer-music__name">빅마마 - 체념</span>
                 </div>
             </section>
         </footer>
+    </div>
+
+    <div class="timer">
+        <div class="timer-top">
+            <span class="timer-top__title">자바스크립트 공부</span>
+        </div>
+        <div class="timer-middle">
+            <div class="time-middle__chart">
+                <span class="time-middle__chart--small">3h 15m</span>
+            </div>
+        </div>
+        <div class="timer-bottom">
+            <div class="timer-bottom__icons">
+                <span class="material-icons-outlined md-55 timer-bottom__icon">pause_circle</span>
+                <span class="timer-bottom__text">Pause</span>
+            </div>
+            <div class="timer-bottom__icons">
+                <span class="material-icons-outlined md-55 timer-bottom__icon">stop_circle</span>
+                <span class="timer-bottom__text">Stop</span>
+            </div>
+        </div>
     </div>
 </body>
 </html>

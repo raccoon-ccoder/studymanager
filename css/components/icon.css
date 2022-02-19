@@ -1,6 +1,17 @@
 .icon {
     border-radius: 50%;
     border: 3px solid var(--light-yellow);
-    width: 40px;
-    height: 40px;
+}
+
+.header__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.round-icon {
+    color: var(--yellow);
+}
+
+.dots {
+    color: var(--light-gray);
 }

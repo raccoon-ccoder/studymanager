@@ -5,8 +5,10 @@
     --yellow: #ffcc3b;
     --gray: #262a30;
     --light-gray: #4f5258;
+    --white: #f7efe2;
 
 
     /* size */
-    --mobile-base-space: 20px;
+    --mobile-base-space: 1.25rem;
+    --card-radius: 20px;
 }
