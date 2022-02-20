@@ -98,4 +98,13 @@
     .footer-music__volume::-moz-range-thumb {
         height: 1.875rem;
     }
+
+
+    .timer {
+        min-height: 650px;    
+    }
+
+    .timer-bottom {
+        width: 30%;
+    }
 }
