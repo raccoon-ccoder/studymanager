@@ -178,6 +178,7 @@
     background-color: var(--light-yellow);
     border-radius: 5px;
     color: var(--light-gray);
+    cursor: pointer;
 }
 
 input[type="range"] {

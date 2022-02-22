@@ -27,6 +27,7 @@
     -webkit-box-pack: justify;
     justify-content: space-between;
     background-color: var(--black);
+    cursor: pointer;
 }
 
 .login__image {

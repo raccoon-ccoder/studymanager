@@ -42,7 +42,7 @@ const volumeChanger = document.querySelector(".footer-music__volume");
 let index = 0;
 let playing_song = false;
 
-audioPlayer.addEventListener("ended", isMusicOver);
+audioPlayer.addEventListener("ended", nextMusic);
 playButton.addEventListener("click", justPlay);
 previousButton.addEventListener("click", previousMusic);
 NextButton.addEventListener("click", nextMusic);
@@ -73,29 +73,17 @@ function pauseMusic() {
 }
 
 function justPlay() {
-    if(playing_song === false) {
-        playMusic();
-    }else {
-        pauseMusic();
-    }
+    playing_song === false ? playMusic() : pauseMusic();
 }
 
 function nextMusic() {
-    if(index < all_song.length -1) {
-        index += 1;
-    }else {
-        index = 0;
-    }
+    index < all_song.length -1 ? index += 1 : index = 0;
     loadMusic(index);
     playMusic();
 }
 
 function previousMusic() {
-    if(index > 0) {
-        index -= 1;
-    }else {
-        index = all_song.length;
-    }
+    index > 0 ? index -= 1 : index = all_song.length;
     loadMusic(index);
     playMusic();
 }
