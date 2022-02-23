@@ -10,8 +10,10 @@
 
 .round-icon {
     color: var(--yellow);
+    cursor: pointer;
 }
 
 .dots {
     color: var(--light-gray);
+    cursor: pointer;
 }

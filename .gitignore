@@ -4,6 +4,7 @@ firebase.json
 .firebase
 *.log
 public
+.firebasesrc
 
 # Logs
 logs

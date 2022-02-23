@@ -30,6 +30,10 @@
     flex-direction: row-reverse;
 }
 
+.header__profile {
+    cursor: pointer;
+}
+
 .header__clock {
     border: 2px solid var(--light-yellow);
     border-radius: 8px;
@@ -41,7 +45,7 @@
 }
 
 .header__time {
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 700;
 }
 
@@ -160,6 +164,7 @@
 .card-item__plus--button {
     color: var(--light-gray);
     font-size: 2.5rem;
+    cursor: pointer;
 }
 
 .footer {
@@ -226,9 +231,8 @@ input[type="range"] {
   }
 
   .timer {
-      display: none;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       position: absolute;
       z-index: 1;
       background-color: var(--black);
@@ -311,3 +315,59 @@ input[type="range"] {
     text-align: center;
     color: var(--light-gray);
 }
+
+.modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal__content {
+    width: 19rem;
+    height: 12rem;
+    background-color: white;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.modal__top {
+    height: 50%;
+}
+
+.modal__title {
+    font-size: 1rem;
+    color: var(--gray);
+    font-weight: 600;
+}
+
+.modal__bottom {
+    height: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.modal__write {
+    margin-top: 1rem;
+    border: none;
+    width: 15.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.modal__button {
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: var(--yellow);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.modal__button--cancel {
+    margin-right: 10px;
+}
+

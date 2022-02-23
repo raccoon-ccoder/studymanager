@@ -53,4 +53,6 @@
 .material-icons-outlined.md-36 { font-size: 36px; }
 .material-icons-outlined.md-55 { font-size: 55px; }
 
-/*  */
+.hidden {
+    display: none;
+}
