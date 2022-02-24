@@ -1,5 +1,4 @@
-// 'use strict';
-
+'use strict';
 const timerButton = document.querySelectorAll(".round-icon");
 
 timerButton.forEach((item) => {
@@ -7,7 +6,8 @@ timerButton.forEach((item) => {
 });
 
 let time;
-let flag;
+let timerFlag;
+let chartFlag;
 
 function startTimer(event) {
     const timerContainer = document.querySelector(".timer");
@@ -34,7 +34,10 @@ function startTimer(event) {
 
     const timerTime = document.querySelector(".time-middle__chart--small");
     timerTime.innerText = `${hour}h ${minute}m`;
-    flag = setInterval(updateTimer, 60000);
+
+    changeChart();
+    timerFlag = setInterval(updateTimer, 60000);
+    changeChart = setInterval(changeChart, 60000);
 }
 
 function updateTimer() {
@@ -45,3 +48,13 @@ function updateTimer() {
     timerTime.innerText = `${hours}h ${minutes}m`;
     time++;
 }
+
+function changeChart() {
+    const minutes = Math.floor(time % 60);
+    const percent = Math.floor(minutes / 60 * 100); 
+    const chart = document.querySelector(".time-middle__chart");
+    chart.style.background = `radial-gradient(farthest-side,#fade92 100% ,#0000) top/25px 25px no-repeat,
+    conic-gradient(#fade92 0% , var(--yellow) ${percent}%, #2b2e35 ${percent}% 100%)`;
+    
+}
+

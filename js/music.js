@@ -1,5 +1,5 @@
 'use strict';
-const all_song = [
+const allSong = [
     {
         singer : "bensound",
         song : "thejazzpiano",
@@ -40,7 +40,7 @@ const musicName = document.querySelector(".footer-music__name");
 const volumeChanger = document.querySelector(".footer-music__volume");
 
 let index = 0;
-let playing_song = false;
+let playingSong = false;
 
 audioPlayer.addEventListener("ended", nextMusic);
 playButton.addEventListener("click", justPlay);
@@ -49,8 +49,8 @@ NextButton.addEventListener("click", nextMusic);
 volumeChanger.addEventListener("change", changeVolume);
 
 function loadMusic(index) {
-    audioPlayer.src = `music/${all_song[index].path}`;
-    musicName.innerText = `${all_song[index].singer} - ${all_song[index].song}`;
+    audioPlayer.src = `music/${allSong[index].path}`;
+    musicName.innerText = `${allSong[index].singer} - ${allSong[index].song}`;
     audioPlayer.load();
 }
 
@@ -58,7 +58,7 @@ loadMusic(index);
 
 function playMusic() {
     audioPlayer.play();
-    playing_song = true;
+    playingSong = true;
     playButton.innerText = "pause";
 }
 
@@ -68,22 +68,22 @@ function isMusicOver() {
 
 function pauseMusic() {
     audioPlayer.pause();
-    playing_song = false;
+    playingSong = false;
     playButton.innerText = "play_arrow";
 }
 
 function justPlay() {
-    playing_song === false ? playMusic() : pauseMusic();
+    playingSong === false ? playMusic() : pauseMusic();
 }
 
 function nextMusic() {
-    index < all_song.length -1 ? index += 1 : index = 0;
+    index < allSong.length -1 ? index += 1 : index = 0;
     loadMusic(index);
     playMusic();
 }
 
 function previousMusic() {
-    index > 0 ? index -= 1 : index = all_song.length;
+    index > 0 ? index -= 1 : index = allSong.length;
     loadMusic(index);
     playMusic();
 }

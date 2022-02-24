@@ -1,3 +1,4 @@
+'use strict';
 const clock = document.querySelector(".header__time");
 function getTime() {
     const today = new Date();

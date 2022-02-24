@@ -260,6 +260,49 @@ input[type="range"] {
       align-items: center;
   }
 
+  /* .time-middle__chart {
+    width: 300px;
+    aspect-ratio: 1;
+    position: relative;
+    display: -ms-inline-grid;
+  }
+
+  .time-middle__chart::before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 0;
+    background: conic-gradient(#fade92 0% , var(--yellow) 30%, #2b2e35 30% 100%);
+    -webkit-mask:radial-gradient(farthest-side,#fade92 100% ,#0000);
+          mask:radial-gradient(farthest-side,#fade92 100% ,#0000);
+        }
+
+  .time-middle__chart:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 137.5px;
+    background: var( --yellow);
+    transform: rotate(calc(55*3.6deg)) translate(calc(50% - 300px/2));
+  }
+
+  .time-middle__chart--small {
+    background: var(--black);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* width: 250px;
+    height: 250px;
+    border-radius: 50%; */
+    /* text-align: center;
+    /* line-height: 250px;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--white);
+  } */
+
   .time-middle__chart {
     position: relative;
     width: 300px;
