@@ -22,10 +22,17 @@ async function logoutUser() {
 
 async function loadProfile() {    
     try {
-        const profile = document.querySelector(".header__profile");
         const auth = await getAuth();
         onAuthStateChanged(auth, async(user) => {
-            user ? profile.src = user.photoURL : window.location.href = "login.html";
+            if(user) {
+                const profile = document.querySelector(".header__profile");
+                const id = user.email.replace("@gmail.com", "");
+
+                profile.src = user.photoURL;
+                profile.dataset.user = id;
+            }else {
+                window.location.href = "login.html";
+            }
         });
     } catch(err) {
         console.log(err);
