@@ -1,19 +1,6 @@
 'use strict';
-import { app, db } from './firebase.js';
-import { getDatabase, ref, set, push, child, get } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
-import { startTimer } from './timer.js';
-import { returnToday } from './today.js';
-export { loadAllSubject };
-
-const plusButton = document.querySelector(".card-item__plus--button");
-const cancelButton = document.querySelector(".modal__button--cancel");
-const createButton = document.querySelector(".modal__button--save");
-
-const HIDDEN_CLASSNAME = "hidden";
-
-plusButton.addEventListener("click", showModal);
-cancelButton.addEventListener("click", closeModal);
-createButton.addEventListener("click", createSubject);
+import { createSubject, readAllSubject, readTodaySubject } from '../model.js'
+import { returnToday } from '../util/util.js';
 
 function showModal() {
     const modalBox = document.querySelector(".modal");
@@ -27,7 +14,7 @@ function closeModal() {
     modalBox.classList.add(HIDDEN_CLASSNAME);
 }
 
-async function createSubject() {
+async function doCreateSubject() {
     const subjectName = document.querySelector(".modal__write").value;
     document.querySelector(".modal__write").value = "";
 
@@ -36,25 +23,10 @@ async function createSubject() {
         return;
     }
 
-    try {
-        // 이것도 분리해야 할듯?
-        const id = document.querySelector(".header__profile").dataset.user;
-        const db = getDatabase();
-        const newSubjectKey = push(ref(db, `subjects/${id}/`)).key;
-        await set(ref(db, `subjects/${id}/${newSubjectKey}`), {
-            subject: subjectName,
-            uid: newSubjectKey
-        });
-        const newSubject = {
-            subject: subjectName,
-            uid: newSubjectKey,
-            time: "0h 0m"
-        };
-        createSubjectArticle(newSubject);
-        closeModal();
-    } catch(err) {
-        console.log(err);
-    }
+    const id = document.querySelector(".header__profile").dataset.user;
+    const newSubject = createSubject(id, subjectName);
+    createSubjectArticle(newSubject);
+    closeModal();
 }
 
 function createSubjectArticle(subject) {
@@ -97,7 +69,7 @@ function createSubjectArticle(subject) {
     timer.classList.add("material-icons-outlined", "round-icon");
     timer.innerText = "play_circle";
 
-    timer.addEventListener("click", startTimer);
+    // timer.addEventListener("click", startTimer);
 
     const dots = document.createElement("span");
     dots.classList.add("material-icons", "dots"); 
@@ -119,50 +91,16 @@ function createSubjectArticle(subject) {
     subjectContainer.prepend(article);
 }
 
-async function readAllSubject() {
-    // 결론적으로는 user 값이 세팅 되기전 함수가 실행되므로 값이 없다
-    const id = document.querySelector(".header__profile").dataset.user;
-    try {
-        const dbRef = ref(getDatabase());
-        const subjects = await get(child(dbRef, `subjects/qorwjddus96`));
-   
-        if(subjects.exists()) {
-            console.log("readAllSubject", subjects.val());
-            return subjects.val();
-        }else {
-            return;
-        }   
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-async function todaySubjectRecord(subjectKey) {
+async function loadAllSubject() {
     const id = document.querySelector(".header__profile").dataset.user;
     const today = returnToday();
+    const subjects = await readAllSubject(id);
 
-    try {
-        const dbRef = ref(getDatabase());
-        const subject = await get(child(dbRef, `${id}/${today}/${subjectKey}`));
-        if(subject.exists()) {
-            return subject.val();
-        }else {
-            return;
-        }   
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-async function loadAllSubject() {
-    const subjects = await readAllSubject();
-    const id = document.querySelector(".header__profile").dataset.user;
-    
     // 과목이 1개라도 존재하는 경우
     if(subjects) {
         const userSubjectList = Object.keys(subjects)
         .map(async(subject) => {
-            const result = await todaySubjectRecord(subject);
+            const result = await readTodaySubject(id, today, subject);
             if(result) {
                 return result; // {subject, uid, time}
             }else {
@@ -180,4 +118,4 @@ async function loadAllSubject() {
     }
 }
 
-loadAllSubject();
+export { loadAllSubject, showModal, closeModal, doCreateSubject };

@@ -1,3 +1,4 @@
+'use strict';
 import { app } from './firebase.js';
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js";
 

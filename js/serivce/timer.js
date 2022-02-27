@@ -1,20 +1,8 @@
 'use strict';
-import { app, db } from './firebase.js';
-import { getDatabase, ref, set, push, update } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
-import { loadAllSubject } from './subject.js';
-import { returnToday } from './today.js';
-export { startTimer };
+import { returnToday } from '../util/util.js';
+export { startTimer, stopTimer, controlTimer };
 
-const pauseButton = document.querySelector(".timer-bottom__icon--pause");
-const stopButton = document.querySelector(".timer-bottom__icon--stop");
-const startButtons = document.querySelectorAll(".round-icon");
 const HIDDEN_CLASSNAME = "hidden";
-
-pauseButton.addEventListener("click", controlTimer);
-stopButton.addEventListener("click", stopTimer);
-startButtons.forEach((button) => {
-    button.addEventListener("click", startTimer);
-});
 
 let time;
 let timerFlag;
@@ -127,34 +115,7 @@ function stopTimer(event) {
     }else {
         updateTodaySubject(subjectName, subjectKey, subjectTime, today, id);
     }
-    loadAllSubject();
     const timerContainer = document.querySelector(".timer");
     timerContainer.classList.add(HIDDEN_CLASSNAME);
-}
-
-async function createTodaySubject(subjectName, subjectKey, subjectTime, today, id) {
-    const db = getDatabase();
-    try {
-        await set(ref(db, `${id}/${today}/${subjectKey}`), {
-            subject: subjectName,
-            uid: subjectKey,
-            time: subjectTime
-        });
-    }catch(err) {
-        console.log(err);
-    }
-}
-
-async function updateTodaySubject(subjectName, subjectKey, subjectTime, today, id) {
-    const db = getDatabase();
-    try {
-        await update(ref(db, `${id}/${today}/${subjectKey}`), {
-            subject: subjectName,
-            uid: subjectKey,
-            time: subjectTime
-        });
-    }catch(err) {
-        console.log(err);
-    }
 }
 

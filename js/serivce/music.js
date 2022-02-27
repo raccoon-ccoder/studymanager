@@ -33,24 +33,10 @@ const allSong = [
 ];
 
 const audioPlayer = document.querySelector("#audioContainer");
-const playButton =  document.querySelector(".footer-music__player--play");
-const previousButton = document.querySelector(".footer-music__player--previous");
-const NextButton = document.querySelector(".footer-music__player--skip");
-const musicName = document.querySelector(".footer-music__name");
-const volumeChanger = document.querySelector(".footer-music__volume");
-
 let index = 0;
 let playingSong = false;
 
-audioPlayer.addEventListener("ended", nextMusic);
-playButton.addEventListener("click", justPlay);
-previousButton.addEventListener("click", previousMusic);
-NextButton.addEventListener("click", nextMusic);
-volumeChanger.addEventListener("change", changeVolume);
-
-loadMusic(index);
-
-function loadMusic(index) {
+function loadMusic() {
     audioPlayer.src = `music/${allSong[index].path}`;
     musicName.innerText = `${allSong[index].singer} - ${allSong[index].song}`;
     audioPlayer.load();
@@ -88,3 +74,5 @@ function changeVolume() {
     const volume = document.querySelector(".footer-music__volume").value;
     audioPlayer.volume = volume / 100;
 }
+
+export { loadMusic, justPlay, nextMusic, previousMusic, changeVolume };

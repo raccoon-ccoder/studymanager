@@ -3,6 +3,7 @@ import { app } from './firebase.js';
 import { getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js";
 
 const loginButton = document.querySelector(".login__text");
+
 loginButton.addEventListener("click", loginUser);
 checkLogin();
 
