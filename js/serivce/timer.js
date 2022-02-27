@@ -1,5 +1,5 @@
-'use strict';
 import { returnToday } from '../util/util.js';
+import { createTodaySubject, updateTodaySubject, readTodayTotal, updateTodayTotal, createTodayTotal } from '../model.js';
 export { startTimer, stopTimer, controlTimer };
 
 const HIDDEN_CLASSNAME = "hidden";
@@ -107,7 +107,6 @@ function stopTimer(event) {
     const subjectTime = document.querySelector(".time-middle__chart").innerText;
     const firstRecord = document.querySelector(".timer-top__title").dataset.firstRecord;
     const id = document.querySelector(".header__profile").dataset.user;
-
     const today = returnToday();
 
     if(firstRecord === "true") {
@@ -115,6 +114,22 @@ function stopTimer(event) {
     }else {
         updateTodaySubject(subjectName, subjectKey, subjectTime, today, id);
     }
+
+    const totalHour = Number(document.querySelector(".card-main__hour").innerText.replace("h",""));
+    const totalMinute = Number(document.querySelector(".card-main__minute").innerText.replace("m",""));
+
+    const total = time + totalHour * 60 + totalMinute;
+    const hours = Math.floor(total / 60);
+    const minutes = Math.floor(total % 60);
+    const totalTime = `${hours}h ${minutes}m`;
+    const result = readTodayTotal(id, today);
+
+    if(result) {
+        updateTodayTotal(id, today, totalTime);
+    } else {
+        createTodayTotal(id, today, totalTime);
+    }
+
     const timerContainer = document.querySelector(".timer");
     timerContainer.classList.add(HIDDEN_CLASSNAME);
 }

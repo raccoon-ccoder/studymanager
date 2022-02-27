@@ -33,6 +33,9 @@ const allSong = [
 ];
 
 const audioPlayer = document.querySelector("#audioContainer");
+const musicName = document.querySelector(".footer-music__name");
+const playButton =  document.querySelector(".footer-music__player--play");
+
 let index = 0;
 let playingSong = false;
 
@@ -65,7 +68,7 @@ function nextMusic() {
 }
 
 function previousMusic() {
-    index > 0 ? index -= 1 : index = allSong.length;
+    index > 0 ? index -= 1 : index = allSong.length-1;
     loadMusic(index);
     playMusic();
 }

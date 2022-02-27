@@ -47,6 +47,7 @@
 .header__time {
     font-size: 1rem;
     font-weight: 700;
+    margin-bottom: 3px;
 }
 
 .main {
@@ -105,7 +106,26 @@
 
 .card-main__item {
     color: var(--light-gray);
+}
+
+.card-main__period {
     cursor: pointer;
+    padding: 10px 10px;
+    font-weight: 800;
+    border-radius: 5px;
+    background-color: var(--gray);
+    color: var(--white);
+    transition: all 0.4s ease-in-out;
+}
+
+.card-main__period:hover {
+    background-color: var(--light-gray);
+    color: var( --white);
+}
+
+.selected {
+    background-color: var(--black);
+    color: var(--yellow);
 }
 
 .card-list {

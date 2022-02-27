@@ -1,6 +1,8 @@
-'use strict';
-import { createSubject, readAllSubject, readTodaySubject } from '../model.js'
+import { createSubject, readAllSubject, readTodaySubject, readTodayTotal } from '../model.js'
 import { returnToday } from '../util/util.js';
+import { startTimer } from './timer.js';
+
+const HIDDEN_CLASSNAME = "hidden";
 
 function showModal() {
     const modalBox = document.querySelector(".modal");
@@ -69,7 +71,7 @@ function createSubjectArticle(subject) {
     timer.classList.add("material-icons-outlined", "round-icon");
     timer.innerText = "play_circle";
 
-    // timer.addEventListener("click", startTimer);
+    timer.addEventListener("click", startTimer);
 
     const dots = document.createElement("span");
     dots.classList.add("material-icons", "dots"); 
@@ -92,15 +94,15 @@ function createSubjectArticle(subject) {
 }
 
 async function loadAllSubject() {
-    const id = document.querySelector(".header__profile").dataset.user;
+    const userId = localStorage.getItem("userId");
     const today = returnToday();
-    const subjects = await readAllSubject(id);
+    const subjects = await readAllSubject(userId);
 
     // 과목이 1개라도 존재하는 경우
     if(subjects) {
         const userSubjectList = Object.keys(subjects)
         .map(async(subject) => {
-            const result = await readTodaySubject(id, today, subject);
+            const result = await readTodaySubject(userId, today, subject);
             if(result) {
                 return result; // {subject, uid, time}
             }else {
@@ -115,6 +117,21 @@ async function loadAllSubject() {
                 createSubjectArticle(res);
             });
         });
+    }
+
+    const total = await readTodayTotal(userId, today);
+
+    const totalHour = document.querySelector(".card-main__hour");
+    const totalMinute = document.querySelector(".card-main__minute");
+
+    if(total) {
+        const hour = total["time"].split(" ")[0];
+        const minute = total["time"].split(" ")[1];
+        totalHour.innerText = hour;
+        totalMinute.innerText = minute;
+    }else {
+        totalHour.innerText = "0h";
+        totalMinute.innerText = "0m";
     }
 }
 
