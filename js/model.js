@@ -1,9 +1,8 @@
 import { app, db } from './firebase.js';
-import { getDatabase, ref, set, push, child, get, update } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
-export { createSubject, readAllSubject, 
-    createTodaySubject, readTodaySubject, updateTodaySubject, 
-    createTodayTotal, readTodayTotal, updateTodayTotal,
-    readTodayAllSubject };
+import { getDatabase, ref, set, push, child, get, remove, update } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
+export { createSubject, readAllSubject, readTodayAllSubject,
+    createTodaySubject,removeTodaySubject, updateTodaySubject, 
+    createTodayTotal, readTodayTotal, updateTodayTotal };
 
 async function createSubject(userId, subjectName) {
     try {
@@ -56,7 +55,7 @@ async function readTodayAllSubject(userId, today) {
     }
 }
 
-async function createTodaySubject(subjectName, subjectKey, subjectTime, today, userId) {
+async function createTodaySubject(userId, today, subjectKey, subjectName, subjectTime) {
     const db = getDatabase();
     try {
         await set(ref(db, `${userId}/${today}/${subjectKey}`), {
@@ -69,24 +68,19 @@ async function createTodaySubject(subjectName, subjectKey, subjectTime, today, u
     }
 }
 
-async function readTodaySubject(userId, today, subjectKey) {
+async function removeTodaySubject(userId, subjectKey) {
     try {
-        const dbRef = ref(getDatabase());
-        const subject = await get(child(dbRef, `${userId}/${today}/${subjectKey}`));
-        if(subject.exists()) {
-            return subject.val();
-        }else {
-            return;
-        }   
-    } catch(err) {
+    const dbRef = ref(getDatabase());
+    const subject = await remove(ref(db, `subjects/${userId}/${subjectKey}`));
+    }catch(err) {
         console.log(err);
     }
 }
 
-async function updateTodaySubject(subjectName, subjectKey, subjectTime, today, id) {
+async function updateTodaySubject(userId, today, subjectKey, subjectName, subjectTime) {
     try {
         const db = getDatabase();
-        await update(ref(db, `${id}/${today}/${subjectKey}`), {
+        await update(ref(db, `${userId}/${today}/${subjectKey}`), {
             subject: subjectName,
             uid: subjectKey,
             time: subjectTime

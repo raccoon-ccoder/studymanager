@@ -47,12 +47,11 @@
 .header__time {
     font-size: 1rem;
     font-weight: 700;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .main {
     width: 100%;
-    height: 28.125rem;
     padding: var(--mobile-base-space) 0;
     box-sizing: border-box;
 }
@@ -153,18 +152,20 @@
     opacity: 0.5;
     font-size: 0.8rem;
     font-weight: 600;
+    padding: 0.5rem 0 0 0;
+    box-sizing: border-box;
 }
 
 .card-item__middle {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.625rem 0 0.3rem 0;
+    padding-top: 0.8rem;
     box-sizing: border-box;
 }
 
 .card-item__now {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     font-weight: 600;
     color: var(--white);
 }

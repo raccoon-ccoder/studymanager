@@ -110,13 +110,13 @@ function stopTimer(event) {
     const today = returnToday();
 
     if(firstRecord === "true") {
-        createTodaySubject(subjectName, subjectKey, subjectTime, today, id);
+        createTodaySubject(id, today, subjectKey, subjectName, subjectTime);
     }else {
-        updateTodaySubject(subjectName, subjectKey, subjectTime, today, id);
+        updateTodaySubject(id, today, subjectKey, subjectName, subjectTime);
     }
 
     const totalHour = Number(document.querySelector(".card-main__hour").innerText.replace("h",""));
-    const totalMinute = Number(document.querySelector(".card-main__minute").innerText.replace("m",""));
+    const totalMinute = Number(document.querySelector(".card-main__minute").innerText.replace("m","")) - 1;
 
     const total = time + totalHour * 60 + totalMinute;
     const hours = Math.floor(total / 60);

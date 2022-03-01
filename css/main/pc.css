@@ -30,7 +30,7 @@
     .main {
         min-width: 672px;
         max-width: 800px;
-        max-height: 620px;
+        height: 28.125rem;
         display: flex;
         justify-content: space-around;
         align-items: center;

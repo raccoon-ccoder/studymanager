@@ -1,7 +1,7 @@
 function returnToday() {
     const day = new Date();
     const year = day.getFullYear();
-    const month = String(day.getMonth()).padStart(2,"0");
+    const month = String(day.getMonth() + 1).padStart(2,"0");
     const date = String(day.getDate()).padStart(2,"0");
     const today = `${year}-${month}-${date}`;
 
@@ -10,7 +10,7 @@ function returnToday() {
 
 function returnDate(today) {
     const year = today.getFullYear();
-    const month = String(today.getMonth()).padStart(2,"0");
+    const month = String(today.getMonth() + 1).padStart(2,"0");
     const date = String(today.getDate()).padStart(2,"0");
     const day = `${year}-${month}-${date}`;
 

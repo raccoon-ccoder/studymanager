@@ -55,6 +55,7 @@ async function init() {
         // 기간별 공부기록 조회
         const periodButton = document.querySelector(".card-main__period--day");
         periodButton.addEventListener("click", loadAllSubject);
+
         const periodButtons = document.querySelectorAll(".card-main__period--not-day");
         periodButtons.forEach((btn) => {btn.addEventListener("click", loadAllSubjectByPeriod);});
     }

@@ -1,8 +1,9 @@
-import { createSubject, readAllSubject, readTodaySubject, readTodayTotal, readTodayAllSubject } from '../model.js'
+import { createSubject, readAllSubject, readTodayTotal, readTodayAllSubject, removeTodaySubject } from '../model.js'
 import { returnToday, returnDate, sumTime } from '../util/util.js';
 import { startTimer } from './timer.js';
 
 const HIDDEN_CLASSNAME = "hidden";
+const SELECTED_CLASSNAME = "selected";
 
 function showModal() {
     const modalBox = document.querySelector(".modal");
@@ -16,6 +17,22 @@ function closeModal() {
     modalBox.classList.add(HIDDEN_CLASSNAME);
 }
 
+function removeSubject(event) {
+    const answer = confirm("과목을 삭제하시겠습니까?\n(기록은 삭제되지 않습니다)");
+    if(answer) {
+        const subjectKey = event.target
+        .closest(".card-item__middle")
+        .previousElementSibling
+        .firstElementChild
+        .dataset
+        .uid;
+
+        const userId = localStorage.getItem("userId");
+        removeTodaySubject(userId, subjectKey);
+        event.target.closest(".card-item").remove();
+    }
+}
+
 async function doCreateSubject() {
     const subjectName = document.querySelector(".modal__write").value;
     document.querySelector(".modal__write").value = "";
@@ -27,7 +44,7 @@ async function doCreateSubject() {
 
     const id = document.querySelector(".header__profile").dataset.user;
     const newSubject = createSubject(id, subjectName);
-    createSubjectArticle(newSubject);
+    createSubjectArticle(newSubject, true);
     closeModal();
 }
 
@@ -44,6 +61,12 @@ function createSubjectArticle(subject, isToday) {
     h3.dataset.uid = subject.uid;
     h3.innerText = subject["subject"];
 
+    if(subject["time"] === "0h 0m") {
+        h3.dataset.firstRecord = "false";
+    }else {
+        h3.dataset.firstRecord = "true";
+    }
+
     divTop.appendChild(h3);
     
     const divMiddle = document.createElement("div");
@@ -54,12 +77,7 @@ function createSubjectArticle(subject, isToday) {
 
     const now = document.createElement("span");
     now.className = "card-item__now";
-    now.innerText = subject["time"]
-    if(subject["time"] === "0h 0m") {
-        h3.dataset.firstRecord = "false";
-    }else {
-        h3.dataset.firstRecord = "true";
-    }
+    now.innerText = subject["time"];
     
     time.appendChild(now);
 
@@ -77,18 +95,12 @@ function createSubjectArticle(subject, isToday) {
         dots.classList.add("material-icons", "dots"); 
         dots.innerText = "more_vert";
 
+        dots.addEventListener("click", removeSubject);
+
         icons.append(timer, dots);
         divMiddle.append(time, icons);
 
-        const divBottom = document.createElement("div");
-        divBottom.className = "card-item__bottom";
-
-        const previousSubject = document.createElement("span");
-        previousSubject.className = "card-item__previous";
-        previousSubject.innerText = "Previous - 0h 0m";
-
-        divBottom.appendChild(previousSubject);
-        article.append(divTop, divMiddle, divBottom);
+        article.append(divTop, divMiddle);
     }else {
         divMiddle.append(time);
         article.append(divTop, divMiddle);
@@ -100,12 +112,17 @@ async function loadAllSubject() {
     const userId = localStorage.getItem("userId");
     const today = returnToday();
     const subjects = await readAllSubject(userId);
+    const periodButtons = document.querySelectorAll(".card-main__period");
+    const selectedButton = document.querySelector(".card-main__period--day");
+    
+    periodButtons.forEach(button => button.classList.remove(SELECTED_CLASSNAME));
+    selectedButton.classList.add(SELECTED_CLASSNAME);
 
     document.querySelector(".card-list__subjects").innerHTML = "";
     document.querySelector(".card-item__plus").classList.remove(HIDDEN_CLASSNAME);
-
+    
     if(subjects) {
-        const allSubjects = readTodayAllSubject(userId, today);
+        const allSubjects = await readTodayAllSubject(userId, today);
 
         for(let key in subjects) {
             if(allSubjects.hasOwnProperty(key)) {
@@ -117,7 +134,6 @@ async function loadAllSubject() {
         }
     }
     const total = await readTodayTotal(userId, today);
-
     const totalHour = document.querySelector(".card-main__hour");
     const totalMinute = document.querySelector(".card-main__minute");
 
@@ -139,8 +155,7 @@ async function readAllSubjectByPeriod(userId, period) {
         const today = new Date();
         const date = new Date(today.setDate(today.getDate() - i));
         const subjects = await readTodayAllSubject(userId, returnDate(date)); // { key: {value}, key : {value} }
-        // console.log(date, subjects);
-        
+
         for(let key in subjects) {
             if(key === "total") {
                 continue;
@@ -151,7 +166,6 @@ async function readAllSubjectByPeriod(userId, period) {
             }
         }
     }
-    // console.log(allSubject);  
     return allSubject;  // {subjectKey : {subject,time,uid}, subjectKey : {subject,time,uid}...}
 }
 
@@ -171,18 +185,19 @@ async function readAllTotalByPeriod(userId, period) {
 }
 
 async function loadAllSubjectByPeriod(event) {
-    const period = event.target.dataset.period;
     document.querySelector(".card-list__subjects").innerHTML = "";
     document.querySelector(".card-item__plus").classList.add(HIDDEN_CLASSNAME);
 
+    const periodButtons = document.querySelectorAll(".card-main__period");
+    periodButtons.forEach(button => button.classList.remove(SELECTED_CLASSNAME));
+    event.target.classList.add(SELECTED_CLASSNAME);
+
     const userId = localStorage.getItem("userId");
+    const period = event.target.dataset.period;
     const allSubject = await readAllSubjectByPeriod(userId, period);
     const allTotal = await readAllTotalByPeriod(userId, period);
 
-    Object.values(allSubject)
-    .map((subject) => {
-        createSubjectArticle(subject);
-    });
+    Object.values(allSubject).map((subject) => createSubjectArticle(subject));
 
     const totalHour = document.querySelector(".card-main__hour");
     const totalMinute = document.querySelector(".card-main__minute");
