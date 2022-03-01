@@ -3,6 +3,7 @@ import { createTodaySubject, updateTodaySubject, readTodayTotal, updateTodayTota
 export { startTimer, stopTimer, controlTimer };
 
 const HIDDEN_CLASSNAME = "hidden";
+const VISIBLE_CLASSNAME = "visible";
 
 let time;
 let timerFlag;
@@ -13,7 +14,7 @@ function startTimer(event) {
     workingTimer = true;
 
     const timerContainer = document.querySelector(".timer");
-    timerContainer.classList.remove(HIDDEN_CLASSNAME);
+    timerContainer.classList.add(VISIBLE_CLASSNAME);
 
     const subjectTime = event.target
     .parentElement
@@ -131,6 +132,6 @@ function stopTimer(event) {
     }
 
     const timerContainer = document.querySelector(".timer");
-    timerContainer.classList.add(HIDDEN_CLASSNAME);
+    timerContainer.classList.remove(VISIBLE_CLASSNAME);
 }
 

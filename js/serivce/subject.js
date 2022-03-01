@@ -3,18 +3,19 @@ import { returnToday, returnDate, sumTime } from '../util/util.js';
 import { startTimer } from './timer.js';
 
 const HIDDEN_CLASSNAME = "hidden";
+const VISIBLE_CLASSNAME = "visible";
 const SELECTED_CLASSNAME = "selected";
 
 function showModal() {
     const modalBox = document.querySelector(".modal");
     const inputBox = document.querySelector(".modal__write");
-    modalBox.classList.remove(HIDDEN_CLASSNAME);
+    modalBox.classList.add(VISIBLE_CLASSNAME);
     inputBox.focus();
 }
 
 function closeModal() {
     const modalBox = document.querySelector(".modal");
-    modalBox.classList.add(HIDDEN_CLASSNAME);
+    modalBox.classList.remove(VISIBLE_CLASSNAME);
 }
 
 function removeSubject(event) {
@@ -30,6 +31,7 @@ function removeSubject(event) {
         const userId = localStorage.getItem("userId");
         removeTodaySubject(userId, subjectKey);
         event.target.closest(".card-item").remove();
+        alert("과목이 삭제되었습니다.");
     }
 }
 
