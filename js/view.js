@@ -1,7 +1,7 @@
 import { loginUser, checkLogin, logoutUser, loadProfile } from './serivce/user-auth.js';
 import { getTime } from './serivce/clock.js';
 import { loadMusic, justPlay, nextMusic, previousMusic, changeVolume } from './serivce/music.js';
-import { loadAllSubject, showModal, closeModal, doCreateSubject } from './serivce/subject.js';
+import { loadAllSubject, showModal, closeModal, doCreateSubject, loadAllSubjectByPeriod } from './serivce/subject.js';
 import { stopTimer, controlTimer } from './serivce/timer.js';
 
 async function init() {
@@ -51,6 +51,12 @@ async function init() {
 
         pauseButton.addEventListener("click", controlTimer);
         stopButton.addEventListener("click", doStopTimer);
+
+        // 기간별 공부기록 조회
+        const periodButton = document.querySelector(".card-main__period--day");
+        periodButton.addEventListener("click", loadAllSubject);
+        const periodButtons = document.querySelectorAll(".card-main__period--not-day");
+        periodButtons.forEach((btn) => {btn.addEventListener("click", loadAllSubjectByPeriod);});
     }
 }
 

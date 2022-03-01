@@ -1,5 +1,5 @@
-import { createSubject, readAllSubject, readTodaySubject, readTodayTotal } from '../model.js'
-import { returnToday } from '../util/util.js';
+import { createSubject, readAllSubject, readTodaySubject, readTodayTotal, readTodayAllSubject } from '../model.js'
+import { returnToday, returnDate, sumTime } from '../util/util.js';
 import { startTimer } from './timer.js';
 
 const HIDDEN_CLASSNAME = "hidden";
@@ -31,7 +31,7 @@ async function doCreateSubject() {
     closeModal();
 }
 
-function createSubjectArticle(subject) {
+function createSubjectArticle(subject, isToday) {
     const subjectContainer = document.querySelector(".card-list__subjects");
     const article = document.createElement("article");
     article.className = "card-item";
@@ -54,42 +54,45 @@ function createSubjectArticle(subject) {
 
     const now = document.createElement("span");
     now.className = "card-item__now";
-    if(subject["time"] !== undefined) {
-        now.innerText = subject["time"];
+    now.innerText = subject["time"]
+    if(subject["time"] === "0h 0m") {
         h3.dataset.firstRecord = "false";
     }else {
-        now.innerText = "0h 0m";
         h3.dataset.firstRecord = "true";
     }
     
     time.appendChild(now);
 
-    const icons = document.createElement("div");
-    icons.className = "card-item__icons";
+    if(isToday) {
+        const icons = document.createElement("div");
+        icons.className = "card-item__icons";
 
-    const timer = document.createElement("span");
-    timer.classList.add("material-icons-outlined", "round-icon");
-    timer.innerText = "play_circle";
+        const timer = document.createElement("span");
+        timer.classList.add("material-icons-outlined", "round-icon");
+        timer.innerText = "play_circle";
 
-    timer.addEventListener("click", startTimer);
+        timer.addEventListener("click", startTimer);
 
-    const dots = document.createElement("span");
-    dots.classList.add("material-icons", "dots"); 
-    dots.innerText = "more_vert";
+        const dots = document.createElement("span");
+        dots.classList.add("material-icons", "dots"); 
+        dots.innerText = "more_vert";
 
-    icons.append(timer, dots);
-    divMiddle.append(time, icons);
+        icons.append(timer, dots);
+        divMiddle.append(time, icons);
 
-    const divBottom = document.createElement("div");
-    divBottom.className = "card-item__bottom";
+        const divBottom = document.createElement("div");
+        divBottom.className = "card-item__bottom";
 
-    const previousSubject = document.createElement("span");
-    previousSubject.className = "card-item__previous";
-    previousSubject.innerText = "Previous - 0h 0m";
+        const previousSubject = document.createElement("span");
+        previousSubject.className = "card-item__previous";
+        previousSubject.innerText = "Previous - 0h 0m";
 
-    divBottom.appendChild(previousSubject);
-    article.append(divTop, divMiddle, divBottom);
-
+        divBottom.appendChild(previousSubject);
+        article.append(divTop, divMiddle, divBottom);
+    }else {
+        divMiddle.append(time);
+        article.append(divTop, divMiddle);
+    }
     subjectContainer.prepend(article);
 }
 
@@ -98,27 +101,21 @@ async function loadAllSubject() {
     const today = returnToday();
     const subjects = await readAllSubject(userId);
 
-    // 과목이 1개라도 존재하는 경우
+    document.querySelector(".card-list__subjects").innerHTML = "";
+    document.querySelector(".card-item__plus").classList.remove(HIDDEN_CLASSNAME);
+
     if(subjects) {
-        const userSubjectList = Object.keys(subjects)
-        .map(async(subject) => {
-            const result = await readTodaySubject(userId, today, subject);
-            if(result) {
-                return result; // {subject, uid, time}
+        const allSubjects = readTodayAllSubject(userId, today);
+
+        for(let key in subjects) {
+            if(allSubjects.hasOwnProperty(key)) {
+                createSubjectArticle(allSubjects[key], true);
             }else {
-                return subjects[subject]; // {subject, uid}
+                subjects[key]["time"] = "0h 0m";
+                createSubjectArticle(subjects[key], true);
             }
-        });
-
-        const subjectContainer = document.querySelector(".card-list__subjects");
-        subjectContainer.innerHTML = "";
-        userSubjectList.map((subject) => {
-            subject.then((res) => {
-                createSubjectArticle(res);
-            });
-        });
+        }
     }
-
     const total = await readTodayTotal(userId, today);
 
     const totalHour = document.querySelector(".card-main__hour");
@@ -135,4 +132,65 @@ async function loadAllSubject() {
     }
 }
 
-export { loadAllSubject, showModal, closeModal, doCreateSubject };
+async function readAllSubjectByPeriod(userId, period) {
+    const allSubject = {};
+
+    for(let i = 0;i < period;i++) {
+        const today = new Date();
+        const date = new Date(today.setDate(today.getDate() - i));
+        const subjects = await readTodayAllSubject(userId, returnDate(date)); // { key: {value}, key : {value} }
+        // console.log(date, subjects);
+        
+        for(let key in subjects) {
+            if(key === "total") {
+                continue;
+            }else if(allSubject.hasOwnProperty(key)) { // weekSubject에 중복 키가 있을 경우 
+                allSubject[key]["time"] = sumTime(allSubject[key]["time"], subjects[key]["time"]);
+            }else {
+                allSubject[key] = subjects[key];
+            }
+        }
+    }
+    // console.log(allSubject);  
+    return allSubject;  // {subjectKey : {subject,time,uid}, subjectKey : {subject,time,uid}...}
+}
+
+async function readAllTotalByPeriod(userId, period) {
+    let allTotal = "0h 0m";
+
+    for(let i = 0;i < period;i++) {
+        const today = new Date();
+        const date = new Date(today.setDate(today.getDate() - i));
+        const total = await readTodayTotal(userId, returnDate(date));   // {time : "0h 13m"}
+
+        if(total) {
+            allTotal = sumTime(allTotal, total["time"]);
+        }
+    }
+    return allTotal;    // "10h 13m"
+}
+
+async function loadAllSubjectByPeriod(event) {
+    const period = event.target.dataset.period;
+    document.querySelector(".card-list__subjects").innerHTML = "";
+    document.querySelector(".card-item__plus").classList.add(HIDDEN_CLASSNAME);
+
+    const userId = localStorage.getItem("userId");
+    const allSubject = await readAllSubjectByPeriod(userId, period);
+    const allTotal = await readAllTotalByPeriod(userId, period);
+
+    Object.values(allSubject)
+    .map((subject) => {
+        createSubjectArticle(subject);
+    });
+
+    const totalHour = document.querySelector(".card-main__hour");
+    const totalMinute = document.querySelector(".card-main__minute");
+
+    const hour = allTotal.split(" ")[0];
+    const minute = allTotal.split(" ")[1];
+    totalHour.innerText = hour;
+    totalMinute.innerText = minute;
+}
+
+export { loadAllSubject, showModal, closeModal, doCreateSubject, loadAllSubjectByPeriod };
