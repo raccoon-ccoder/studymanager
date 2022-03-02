@@ -1,12 +1,9 @@
-js/firebase.js
 database.rules.json
-firebase.json
 .firebase
 *.log
-public
-.firebasesrc
 .DS_Store
-.github
+.firebaserc
+firebase.json
 
 # Logs
 logs
