@@ -2,8 +2,8 @@ database.rules.json
 .firebase
 *.log
 .DS_Store
-.firebaserc
 firebase.json
+.firebaserc
 
 # Logs
 logs
