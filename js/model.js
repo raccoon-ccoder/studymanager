@@ -6,10 +6,8 @@ export { createSubject, readAllSubject, readTodayAllSubject,
 
 async function createSubject(userId, subjectName) {
     try {
-        const db = getDatabase();
         const newSubjectKey = push(ref(db, `subjects/${userId}/`)).key;
-
-        await set(ref(db, `subjects/${id}/${newSubjectKey}`), {
+        await set(ref(db, `subjects/${userId}/${newSubjectKey}`), {
             subject: subjectName,
             uid: newSubjectKey
         });
@@ -28,7 +26,7 @@ async function createSubject(userId, subjectName) {
 
 async function readAllSubject(userId) {
     try {
-        const dbRef = ref(getDatabase());
+        const dbRef = ref(db);
         const subjects = await get(child(dbRef, `subjects/${userId}`));
    
         if(subjects.exists()) {
@@ -43,7 +41,7 @@ async function readAllSubject(userId) {
 
 async function readTodayAllSubject(userId, today) {
     try {
-        const dbRef = ref(getDatabase());
+        const dbRef = ref(db);
         const subject = await get(child(dbRef, `${userId}/${today}`));
         if(subject.exists()) {
             return subject.val();
@@ -56,7 +54,6 @@ async function readTodayAllSubject(userId, today) {
 }
 
 async function createTodaySubject(userId, today, subjectKey, subjectName, subjectTime) {
-    const db = getDatabase();
     try {
         await set(ref(db, `${userId}/${today}/${subjectKey}`), {
             subject: subjectName,
@@ -70,8 +67,7 @@ async function createTodaySubject(userId, today, subjectKey, subjectName, subjec
 
 async function removeTodaySubject(userId, subjectKey) {
     try {
-    const dbRef = ref(getDatabase());
-    const subject = await remove(ref(db, `subjects/${userId}/${subjectKey}`));
+        const subject = await remove(ref(db, `subjects/${userId}/${subjectKey}`));
     }catch(err) {
         console.log(err);
     }
@@ -79,7 +75,6 @@ async function removeTodaySubject(userId, subjectKey) {
 
 async function updateTodaySubject(userId, today, subjectKey, subjectName, subjectTime) {
     try {
-        const db = getDatabase();
         await update(ref(db, `${userId}/${today}/${subjectKey}`), {
             subject: subjectName,
             uid: subjectKey,
@@ -92,7 +87,6 @@ async function updateTodaySubject(userId, today, subjectKey, subjectName, subjec
 
 async function createTodayTotal(userId, today, totalTime) {
     try {
-        const db = getDatabase();
         await set(ref(db, `${userId}/${today}/total`), {
             time : totalTime
         });
@@ -103,7 +97,7 @@ async function createTodayTotal(userId, today, totalTime) {
 
 async function readTodayTotal(userId, today) {
     try {
-        const dbRef = ref(getDatabase());
+        const dbRef = ref(db);
         const subject = await get(child(dbRef, `${userId}/${today}/total`));
         if(subject.exists()) {
             return subject.val();
@@ -117,7 +111,6 @@ async function readTodayTotal(userId, today) {
 
 async function updateTodayTotal(userId, today, totalTime) {
     try {
-        const db = getDatabase();
         await update(ref(db, `${userId}/${today}/total`), {
             time : totalTime
         });

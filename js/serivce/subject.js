@@ -44,8 +44,8 @@ async function doCreateSubject() {
         return;
     }
 
-    const id = document.querySelector(".header__profile").dataset.user;
-    const newSubject = createSubject(id, subjectName);
+    const id = localStorage.getItem("userId");
+    const newSubject = await createSubject(id, subjectName);
     createSubjectArticle(newSubject, true);
     closeModal();
 }
@@ -126,10 +126,17 @@ async function loadAllSubject() {
     if(subjects) {
         const allSubjects = await readTodayAllSubject(userId, today);
 
-        for(let key in subjects) {
-            if(allSubjects.hasOwnProperty(key)) {
-                createSubjectArticle(allSubjects[key], true);
-            }else {
+        if(allSubjects) {
+            for(let key in subjects) {
+                if(allSubjects.hasOwnProperty(key)) {
+                    createSubjectArticle(allSubjects[key], true);
+                }else {
+                    subjects[key]["time"] = "0h 0m";
+                    createSubjectArticle(subjects[key], true);
+                }
+            }
+        }else {
+            for(let key in subjects) {
                 subjects[key]["time"] = "0h 0m";
                 createSubjectArticle(subjects[key], true);
             }

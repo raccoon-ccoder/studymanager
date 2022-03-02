@@ -6,6 +6,7 @@ firebase.json
 public
 .firebasesrc
 .DS_Store
+.github
 
 # Logs
 logs
