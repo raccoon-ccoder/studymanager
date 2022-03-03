@@ -128,7 +128,7 @@
 }
 
 .card-list {
-    height: calc(100vh - 22rem);
+    height: calc(100vh - 27.5rem);
     width: 100%;
     overflow: scroll;
 }
@@ -197,7 +197,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
 }
 
@@ -287,7 +287,8 @@ input[type="range"]::-webkit-slider-thumb {
 .time-middle__chart {
     position: relative;
     width: var(--chart-width);
-    aspect-ratio: 1;
+    height: var(--chart-width);
+    /* aspect-ratio: 1; */
     border-radius: 50%;
     font-size: 2.5rem;
     font-weight: 700;
@@ -301,8 +302,8 @@ input[type="range"]::-webkit-slider-thumb {
     position: absolute;
     border-radius: 50%;
     inset: 0;
-    background: radial-gradient(farthest-side,var(--chart-light-yellow) 100% ,#0000) top/var(--chart-border) var(--chart-border) no-repeat
-    ,conic-gradient(var(--chart-light-yellow) 0% , var(--yellow) calc(var(--chart-percent)*1%), #2B2E36 calc((var(--chart-percent) + 1)*1%) 100%);
+    background: radial-gradient(farthest-side,var(--chart-light-yellow) 98% ,#0000) top/var(--chart-border) var(--chart-border) no-repeat
+    ,conic-gradient(var(--chart-light-yellow) 0% , var(--yellow) calc(var(--chart-percent)*1%), #2B2E36 calc(var(--chart-percent)*1%) 100%);
     -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - var(--chart-border)),#000 calc(100% - var(--chart-border)));
 }
 
@@ -388,6 +389,7 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: var(--yellow);
     font-weight: 700;
     cursor: pointer;
+    color: black;
 }
 
 .modal__button--cancel {

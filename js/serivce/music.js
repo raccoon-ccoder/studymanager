@@ -73,7 +73,8 @@ function previousMusic() {
     playMusic();
 }
 
-function changeVolume() {
+function changeVolume(event) {
+    console.log(event.target.value);
     const volume = document.querySelector(".footer-music__volume").value;
     audioPlayer.volume = volume / 100;
 }

@@ -15,7 +15,7 @@ async function init() {
         await loadProfile();
         await loadAllSubject();
         getTime(); 
-        setInterval(getTime, 1000); // 시간 baselin 조정
+        setInterval(getTime, 1000);
         loadMusic();
 
         // 로그아웃
@@ -33,7 +33,7 @@ async function init() {
         playButton.addEventListener("click", justPlay);
         previousButton.addEventListener("click", previousMusic);
         NextButton.addEventListener("click", nextMusic);
-        volumeChanger.addEventListener("change", changeVolume);
+        volumeChanger.addEventListener("input", changeVolume);
 
         // 과목 
         const plusButton = document.querySelector(".card-item__plus--button");

@@ -6,6 +6,7 @@ const HIDDEN_CLASSNAME = "hidden";
 const VISIBLE_CLASSNAME = "visible";
 
 let time;
+let previousTime;
 let timerFlag;
 let chartFlag;
 let workingTimer;
@@ -49,7 +50,8 @@ function startTimer(event) {
 
     const hour = subjectTime.split(" ")[0].replace("h","");
     const minute = subjectTime.split(" ")[1].replace("m","");
-    time =  hour * 60 + Number(minute);
+    time =  Number(hour) * 60 + Number(minute);
+    previousTime = Number(hour) * 60 + Number(minute);
 
     const timerTime = document.querySelector(".time-middle__chart");
     timerTime.innerText = `${hour}h ${minute}m`;
@@ -76,6 +78,7 @@ function changeChart() {
 }
 
 function controlTimer() {
+    const pauseButton = document.querySelector(".timer-bottom__icon--pause");
     const buttonText = document.querySelector(".timer-bottom__text--pause");
     
     if(workingTimer === true) {
@@ -106,9 +109,17 @@ function stopTimer(event) {
     const subjectKey = document.querySelector(".timer-top__title").dataset.uid;
     const subjectName = document.querySelector(".timer-top__title").innerText;
     const subjectTime = document.querySelector(".time-middle__chart").innerText;
-    const firstRecord = document.querySelector(".timer-top__title").dataset.firstRecord;
     const id = document.querySelector(".header__profile").dataset.user;
+    const firstRecord = document.querySelector(".timer-top__title").dataset.firstRecord;
     const today = returnToday();
+
+    const timerContainer = document.querySelector(".timer");
+    const pauseButton = document.querySelector(".timer-bottom__icon--pause");
+    const buttonText = document.querySelector(".timer-bottom__text--pause");
+    
+    timerContainer.classList.remove(VISIBLE_CLASSNAME);
+    pauseButton.innerText = "pause_circle";
+    buttonText.innerText = "Pause";
 
     if(firstRecord === "true") {
         createTodaySubject(id, today, subjectKey, subjectName, subjectTime);
@@ -119,7 +130,7 @@ function stopTimer(event) {
     const totalHour = Number(document.querySelector(".card-main__hour").innerText.replace("h",""));
     const totalMinute = Number(document.querySelector(".card-main__minute").innerText.replace("m","")) - 1;
 
-    const total = time + totalHour * 60 + totalMinute;
+    const total = time - previousTime + totalHour * 60 + totalMinute;
     const hours = Math.floor(total / 60);
     const minutes = Math.floor(total % 60);
     const totalTime = `${hours}h ${minutes}m`;
@@ -130,8 +141,5 @@ function stopTimer(event) {
     } else {
         createTodayTotal(id, today, totalTime);
     }
-
-    const timerContainer = document.querySelector(".timer");
-    timerContainer.classList.remove(VISIBLE_CLASSNAME);
 }
 

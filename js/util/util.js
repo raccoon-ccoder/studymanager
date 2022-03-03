@@ -30,6 +30,4 @@ function sumTime(totalTime, studyTime) {
     return `${hour}h ${min}m`;    
 }
 
-
-
 export { returnToday, returnDate, sumTime };

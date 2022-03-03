@@ -46,12 +46,19 @@ async function doCreateSubject() {
 
     const id = localStorage.getItem("userId");
     const newSubject = await createSubject(id, subjectName);
-    createSubjectArticle(newSubject, true);
+    createSubjectArticle(newSubject, "1");
     closeModal();
 }
 
-function createSubjectArticle(subject, isToday) {
-    const subjectContainer = document.querySelector(".card-list__subjects");
+function createSubjectArticle(subject, period) {
+    let subjectContainer;
+    if(period === "1") {
+        subjectContainer = document.querySelector(".card-list__subjects--day");
+    }else if(period === "7"){
+        subjectContainer = document.querySelector(".card-list__subjects--week");
+    }else{
+        subjectContainer = document.querySelector(".card-list__subjects--month");
+    }
     const article = document.createElement("article");
     article.className = "card-item";
 
@@ -83,7 +90,7 @@ function createSubjectArticle(subject, isToday) {
     
     time.appendChild(now);
 
-    if(isToday) {
+    if(period === "1") {
         const icons = document.createElement("div");
         icons.className = "card-item__icons";
 
@@ -101,12 +108,10 @@ function createSubjectArticle(subject, isToday) {
 
         icons.append(timer, dots);
         divMiddle.append(time, icons);
-
-        article.append(divTop, divMiddle);
     }else {
         divMiddle.append(time);
-        article.append(divTop, divMiddle);
     }
+    article.append(divTop, divMiddle);
     subjectContainer.prepend(article);
 }
 
@@ -116,12 +121,19 @@ async function loadAllSubject() {
     const subjects = await readAllSubject(userId);
     const periodButtons = document.querySelectorAll(".card-main__period");
     const selectedButton = document.querySelector(".card-main__period--day");
-    
+    const dayContainer = document.querySelector(".card-list__subjects--day");
+    const weekContainer = document.querySelector(".card-list__subjects--week");
+    const monthContainer = document.querySelector(".card-list__subjects--month");
+    const subjectAddContainer = document.querySelector(".card-item__plus");
+
     periodButtons.forEach(button => button.classList.remove(SELECTED_CLASSNAME));
     selectedButton.classList.add(SELECTED_CLASSNAME);
 
-    document.querySelector(".card-list__subjects").innerHTML = "";
-    document.querySelector(".card-item__plus").classList.remove(HIDDEN_CLASSNAME);
+    dayContainer.innerHTML = "";
+    dayContainer.classList.remove(HIDDEN_CLASSNAME);
+    weekContainer.classList.add(HIDDEN_CLASSNAME);
+    monthContainer.classList.add(HIDDEN_CLASSNAME);
+    subjectAddContainer.classList.remove(HIDDEN_CLASSNAME);
     
     if(subjects) {
         const allSubjects = await readTodayAllSubject(userId, today);
@@ -129,16 +141,16 @@ async function loadAllSubject() {
         if(allSubjects) {
             for(let key in subjects) {
                 if(allSubjects.hasOwnProperty(key)) {
-                    createSubjectArticle(allSubjects[key], true);
+                    createSubjectArticle(allSubjects[key], "1");
                 }else {
                     subjects[key]["time"] = "0h 0m";
-                    createSubjectArticle(subjects[key], true);
+                    createSubjectArticle(subjects[key], "1");
                 }
             }
         }else {
             for(let key in subjects) {
                 subjects[key]["time"] = "0h 0m";
-                createSubjectArticle(subjects[key], true);
+                createSubjectArticle(subjects[key], "1");
             }
         }
     }
@@ -194,19 +206,34 @@ async function readAllTotalByPeriod(userId, period) {
 }
 
 async function loadAllSubjectByPeriod(event) {
-    document.querySelector(".card-list__subjects").innerHTML = "";
-    document.querySelector(".card-item__plus").classList.add(HIDDEN_CLASSNAME);
+    const dayContainer = document.querySelector(".card-list__subjects--day");
+    const weekContainer = document.querySelector(".card-list__subjects--week");
+    const monthContainer = document.querySelector(".card-list__subjects--month");
+    const subjectAddContainer = document.querySelector(".card-item__plus");
+    const period = event.target.dataset.period;
+
+    dayContainer.classList.add(HIDDEN_CLASSNAME);
+    subjectAddContainer.classList.add(HIDDEN_CLASSNAME);
+
+    if(period === "7") {
+        weekContainer.innerHTML = "";
+        weekContainer.classList.remove(HIDDEN_CLASSNAME);
+        monthContainer.classList.add(HIDDEN_CLASSNAME);
+    }else{
+        monthContainer.innerHTML = "";
+        monthContainer.classList.remove(HIDDEN_CLASSNAME);
+        weekContainer.classList.add(HIDDEN_CLASSNAME);
+    }
 
     const periodButtons = document.querySelectorAll(".card-main__period");
     periodButtons.forEach(button => button.classList.remove(SELECTED_CLASSNAME));
     event.target.classList.add(SELECTED_CLASSNAME);
 
     const userId = localStorage.getItem("userId");
-    const period = event.target.dataset.period;
     const allSubject = await readAllSubjectByPeriod(userId, period);
     const allTotal = await readAllTotalByPeriod(userId, period);
 
-    Object.values(allSubject).map((subject) => createSubjectArticle(subject));
+    Object.values(allSubject).map((subject) => createSubjectArticle(subject,period));
 
     const totalHour = document.querySelector(".card-main__hour");
     const totalMinute = document.querySelector(".card-main__minute");
