@@ -1,4 +1,3 @@
-import { app } from '../firebase.js';
 import { getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, browserLocalPersistence, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js";
 
 async function loginUser() {    

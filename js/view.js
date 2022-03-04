@@ -47,7 +47,6 @@ async function init() {
         // 타이머
         const pauseButton = document.querySelector(".timer-bottom__icon--pause");
         const stopButton = document.querySelector(".timer-bottom__icon--stop");
-        const startButtons = document.querySelectorAll(".round-icon");
 
         pauseButton.addEventListener("click", controlTimer);
         stopButton.addEventListener("click", doStopTimer);

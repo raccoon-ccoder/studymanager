@@ -1,5 +1,5 @@
-import { app, db } from './firebase.js';
-import { getDatabase, ref, set, push, child, get, remove, update } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
+import { db } from './firebase.js';
+import { ref, set, push, child, get, remove, update } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
 export { createSubject, readAllSubject, readTodayAllSubject,
     createTodaySubject,removeTodaySubject, updateTodaySubject, 
     createTodayTotal, readTodayTotal, updateTodayTotal };

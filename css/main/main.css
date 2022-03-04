@@ -80,7 +80,7 @@
 .card-main__title {
     width: 30%;
     height: 100%;
-    color: var(--light-gray);
+    color: var(--black);
     font-size: 0.8rem;
 }
 
@@ -148,8 +148,7 @@
 }
 
 .card-item__title {
-    color: var(--white);
-    opacity: 0.5;
+    color: var(--light-gray);
     font-size: 0.8rem;
     font-weight: 600;
     padding: 0.5rem 0 0 0;
@@ -204,7 +203,7 @@
 .player-icon {
     background-color: var(--light-yellow);
     border-radius: 5px;
-    color: var(--light-gray);
+    color: var(--black);
     cursor: pointer;
 }
 
@@ -288,7 +287,6 @@ input[type="range"]::-webkit-slider-thumb {
     position: relative;
     width: var(--chart-width);
     height: var(--chart-width);
-    /* aspect-ratio: 1; */
     border-radius: 50%;
     font-size: 2.5rem;
     font-weight: 700;
