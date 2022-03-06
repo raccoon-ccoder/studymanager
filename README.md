@@ -12,8 +12,8 @@
   - 오디오 스트리밍 구현 (음량조절, 재생, 멈춤, 넘기기)
   - Firebase Authentication 활용 google 계정으로 로그인, 로그아웃 
   - Firebase Hosting 활용 프로젝트 배포
-- 사용 기술
-  - HTML, CSS, JavaScript, Firebase
+- 기간 및 사용 기술
+  - 22.02.15 ~ 22.03.05 (약 19일) / HTML, CSS, JavaScript, Firebase
 - 프로젝트 둘러보기
   - [studymanager 바로가기](https://studymanager-jy.web.app/)
 
@@ -37,10 +37,30 @@
 
 <br/>
 
-<img width="572" alt="스크린샷 2022-03-06 오후 4 45 54" src="https://user-images.githubusercontent.com/77538818/156914067-6280b6f0-c752-40cc-a196-00228bce0b91.png">    
-웹사이트에 적절한 타이틀, 정보 요약을 하는 meta description 태그를 추가하였습니다.  
+<img width="572" alt="스크린샷 2022-03-06 오후 4 45 54" src="https://user-images.githubusercontent.com/77538818/156944026-203c8203-67f9-4a3e-a0e1-96af6e409297.png"> 
+
+웹사이트에 적절한 타이틀, 정보 요약을 하는 meta description 태그를 추가하였습니다.
 
 <br/>
 
-<img width="762" alt="스크린샷 2022-03-06 오후 4 46 29" src="https://user-images.githubusercontent.com/77538818/156914073-5b0c5829-fae6-4e89-a713-ee65c730ca33.png">   
-구글 아이콘 link 태그에 preload 설정으로 비동기적으로 요청하였으며, 단순히 preload 설정시 원하는 아이콘이 text 형태로 표현되기에 onload="this.rel = 'stylesheet’" 설정으로 로드 완료시 CSS를 처리하였습니다.
+<img width="762" alt="스크린샷 2022-03-06 오후 4 46 29" src="https://user-images.githubusercontent.com/77538818/156914073-5b0c5829-fae6-4e89-a713-ee65c730ca33.png"> 
+   구글 아이콘 link 태그에 preload 설정으로 비동기적으로 요청하였으며, 단순히 preload 설정시 원하는 아이콘이 text 형태로 표현되기에 onload="this.rel = 'stylesheet’" 설정으로 로드 완료시 CSS를 처리하였습니다.
+
+## 스크린샷
+### 로그인 & 로그아웃
+![login-logout](https://user-images.githubusercontent.com/77538818/156945466-df222e4c-daf6-4cda-b8d8-6ae6666773d3.gif)
+
+### 과목 추가 및 삭제
+![subject-add,remove](https://user-images.githubusercontent.com/77538818/156945464-636af5d8-412a-49c1-9836-fb31a032fd5e.gif)
+
+### 타이머
+![timer](https://user-images.githubusercontent.com/77538818/156945461-d2b8bea2-aa76-4ea0-82f7-19e1fc6b3c07.gif)
+
+### 기간별 공부 기록 조회
+![period](https://user-images.githubusercontent.com/77538818/156945460-2f0224a8-91f0-46b5-adef-aab812817c7c.gif)
+
+### 음악 플레이어
+![sound](https://user-images.githubusercontent.com/77538818/156945456-b7abcf8c-afba-4260-96e3-598d55ad8590.gif)
+
+### 모바일
+![mobile](https://user-images.githubusercontent.com/77538818/156945926-f35841be-5c13-4634-84b0-f838eb6fb24e.gif)
