@@ -2,7 +2,6 @@ import { returnToday } from '../util/util.js';
 import { createTodaySubject, updateTodaySubject, readTodayTotal, updateTodayTotal, createTodayTotal } from '../model.js';
 export { startTimer, stopTimer, controlTimer };
 
-const HIDDEN_CLASSNAME = "hidden";
 const VISIBLE_CLASSNAME = "visible";
 
 let time;
@@ -74,7 +73,7 @@ function updateTimer() {
 function changeChart() {
     const minutes = Math.floor(time % 60);
     const percent = Math.floor(minutes / 60 * 100); 
-    document.documentElement.style.setProperty("--chart-percent", percent);
+    document.documentElement.style.setProperty("--c-p", percent);
 }
 
 function controlTimer() {

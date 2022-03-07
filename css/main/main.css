@@ -285,8 +285,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 .time-middle__chart {
     position: relative;
-    width: var(--chart-width);
-    height: var(--chart-width);
+    width: var(--c-w);
+    height: var(--c-w);
     border-radius: 50%;
     font-size: 2.5rem;
     font-weight: 700;
@@ -300,17 +300,18 @@ input[type="range"]::-webkit-slider-thumb {
     position: absolute;
     border-radius: 50%;
     inset: 0;
-    background: radial-gradient(farthest-side,var(--chart-light-yellow) 98% ,#0000) top/var(--chart-border) var(--chart-border) no-repeat
-    ,conic-gradient(var(--chart-light-yellow) 0% , var(--yellow) calc(var(--chart-percent)*1%), #2B2E36 calc(var(--chart-percent)*1%) 100%);
-    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - var(--chart-border)),#000 calc(100% - var(--chart-border)));
+    background: radial-gradient(farthest-side, var(--c-light-yellow) 98% ,#0000) top/var(--c-b) var(--c-b) no-repeat,
+                conic-gradient(var(--c-light-yellow) 0%, var(--yellow) calc(var(--c-p)*1%), #2B2E36 calc(var(--c-p)*1%) 100%);
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - var(--c-b)),#000 calc(100% - var(--c-b)));
+            mask: radial-gradient(farthest-side,#0000 calc(100% - var(--c-b)),#000 calc(100% - var(--c-b)));
 }
 
 .time-middle__chart:after {
-    transform: rotate(calc(var(--chart-percent)*3.6deg)) translateY(calc(50% - var(--chart-width)/2));
+    transform: rotate(calc(var(--c-p) * 3.6deg)) translateY(calc(50% - var(--c-w)/2));
     content: "";
     position: absolute;
     border-radius: 50%;
-    inset: calc(50% - var(--chart-border)/2);
+    inset: calc(50% - var(--c-b)/2);
     background: var(--yellow);
 }
 
