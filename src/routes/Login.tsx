@@ -15,7 +15,8 @@ const LogoImg = styled.img`
     width: 160px;
     height: 160px;
     margin: 0px 0px 4rem;
-    border: 3px solid white;`;
+    border: 3px solid white;
+`;
 
 const LoginBtn = styled.button`
     border: 2px solid white;
