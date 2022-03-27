@@ -38,7 +38,7 @@ const theme:DefaultTheme = {
             percent: '0', 
         },
         icon: {
-            border: `3px solid ffef7d`,
+            border: `3px solid #ffef7d`,
             borderRadius: '50%',
             headerWidth: '2.5rem',
             headerHeight: '2.5rem',

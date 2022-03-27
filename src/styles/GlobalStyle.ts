@@ -13,8 +13,8 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
     }
     body {
-        background-color: var(--black);
-        padding: var(--mobile-base-space);
+        background-color: ${props => props.theme.color.black};
+        padding: ${props => props.theme.size.mobileBaseSpace};
         box-sizing: border-box;
         display: flex;
         justify-content: center;
