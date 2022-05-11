@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SkipPreviousOutlinedIcon from "@material-ui/icons/SkipPreviousOutlined";
 import PlayArrowOutlinedIcon from "@material-ui/icons/PlayArrowOutlined";
 import SkipNextOutlinedIcon from "@material-ui/icons/SkipNextOutlined";
+import PauseOutlinedIcon from "@material-ui/icons/PauseOutlined";
 
 export const Footer = styled.footer`
   width: 100%;
@@ -43,6 +44,13 @@ export const NextBtn = styled(SkipNextOutlinedIcon)`
   cursor: pointer;
 `;
 
+export const PauseBtn = styled(PauseOutlinedIcon)`
+  background-color: ${(props) => props.theme.color.lightYellow};
+  border-radius: 5px;
+  color: ${(props) => props.theme.color.black};
+  cursor: pointer;
+`;
+
 export const Volume = styled.input`
   -webkit-appearance: none;
   width: 3.75rem;
@@ -65,11 +73,12 @@ export const Volume = styled.input`
     cursor: pointer;
     border-radius: 4px;
   }
-  :focus {
+  // 모바일에서 확인
+  /* :focus {
     padding: 1rem 0 0 0;
     box-sizing: border-box;
     text-align: center;
-  }
+  } */
 
   @media screen and (min-width: 768px) {
     height: 1.4rem;

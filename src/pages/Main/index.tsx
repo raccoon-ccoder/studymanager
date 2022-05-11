@@ -41,7 +41,6 @@ function Main() {
   };
 
   showTime();
-  console.log(time);
 
   return (
     <S.MainInner>
