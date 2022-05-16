@@ -6,22 +6,24 @@ function MusicPlayer() {
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const musicPlayer = useRef<any>(null);
+  const musicPlayer = useRef<HTMLAudioElement>(null);
   const musicName = useRef();
 
   const playMusic = () => {
-    musicPlayer.current.play();
+    musicPlayer.current?.play();
     setIsPlayingMusic(true);
   };
 
   const pauseMusic = () => {
-    musicPlayer.current.pause();
+    musicPlayer.current?.pause();
     setIsPlayingMusic(false);
   };
 
   const changeVolume = (e: React.FormEvent<HTMLInputElement>) => {
     const volume = e.currentTarget.value;
-    musicPlayer.current.volume = Number(volume) / 100;
+    if (musicPlayer && musicPlayer.current) {
+      musicPlayer.current.volume = Number(volume) / 100;
+    }
   };
 
   return (
