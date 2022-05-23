@@ -1,13 +1,14 @@
 import * as S from "./style";
-import music1 from "../../music/Chiro-Slump.mp3";
-import React, { useRef, useState } from "react";
+import { musics } from "./musics";
+import React, { useEffect, useRef, useState } from "react";
 
 function MusicPlayer() {
+  const [music, setMusic] = useState(musics);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const [index, setIndex] = useState(0);
 
   const musicPlayer = useRef<HTMLAudioElement>(null);
-  const musicName = useRef();
+  const musicName = useRef<HTMLLabelElement>(null);
 
   const playMusic = () => {
     musicPlayer.current?.play();
@@ -19,6 +20,15 @@ function MusicPlayer() {
     setIsPlayingMusic(false);
   };
 
+  const loadMusic = () => {
+    if (musicPlayer && musicPlayer.current && musicName.current) {
+      musicPlayer.current.src = require("./" + music[index].src);
+      musicPlayer.current.load();
+      playMusic();
+      musicName.current.innerText = `${music[index].artist} - ${music[index].title}`;
+    }
+  };
+
   const changeVolume = (e: React.FormEvent<HTMLInputElement>) => {
     const volume = e.currentTarget.value;
     if (musicPlayer && musicPlayer.current) {
@@ -26,18 +36,38 @@ function MusicPlayer() {
     }
   };
 
+  const changeNextMusic = () => {
+    index < music.length - 1 ? setIndex((idx) => idx + 1) : setIndex(0);
+    loadMusic();
+  };
+
+  const changePreviousMusic = () => {
+    index > 0 ? setIndex((idx) => idx - 1) : setIndex(music.length - 1);
+    loadMusic();
+  };
+
+  useEffect(() => {
+    loadMusic();
+    musicPlayer.current?.addEventListener("ended", () => changeNextMusic());
+    return () => {
+      musicPlayer.current?.removeEventListener("ended", () =>
+        changeNextMusic()
+      );
+    };
+  }, []);
+
   return (
     <S.Footer>
       <S.MusicSection>
-        <S.MusicPlayer src={music1} ref={musicPlayer} />
+        <S.MusicPlayer ref={musicPlayer} />
         <S.MusicIcons>
-          <S.PreviousBtn />
+          <S.PreviousBtn onClick={changePreviousMusic} />
           {isPlayingMusic ? (
             <S.PauseBtn onClick={pauseMusic} />
           ) : (
             <S.PlayBtn onClick={playMusic} />
           )}
-          <S.NextBtn />
+          <S.NextBtn onClick={changeNextMusic} />
           <S.Volume
             type="range"
             min="0"
@@ -48,7 +78,7 @@ function MusicPlayer() {
           />
         </S.MusicIcons>
         <S.MusicInfo>
-          <S.MusicName htmlFor="volume" />
+          <S.MusicName htmlFor="volume" ref={musicName} />
         </S.MusicInfo>
       </S.MusicSection>
     </S.Footer>
