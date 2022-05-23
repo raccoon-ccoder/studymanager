@@ -38,23 +38,27 @@ function MusicPlayer() {
 
   const changeNextMusic = () => {
     index < music.length - 1 ? setIndex((idx) => idx + 1) : setIndex(0);
-    loadMusic();
   };
 
   const changePreviousMusic = () => {
     index > 0 ? setIndex((idx) => idx - 1) : setIndex(music.length - 1);
-    loadMusic();
   };
 
   useEffect(() => {
     loadMusic();
-    musicPlayer.current?.addEventListener("ended", () => changeNextMusic());
+    if (musicPlayer && musicPlayer.current) {
+      musicPlayer.current.addEventListener("ended", () => changeNextMusic());
+    }
     return () => {
       musicPlayer.current?.removeEventListener("ended", () =>
         changeNextMusic()
       );
     };
   }, []);
+
+  useEffect(() => {
+    loadMusic();
+  }, [index]);
 
   return (
     <S.Footer>
