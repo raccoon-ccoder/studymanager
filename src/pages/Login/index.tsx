@@ -1,30 +1,35 @@
 import * as S from "./style";
 import Logo from "../../images/logo.png";
 import GoogleLogo from "../../images/googlelogo.png";
-import { auth, provider } from "../../context/firebase";
+import { auth, provider } from "../../recoil/firebase";
 import {
   setPersistence,
   signInWithPopup,
   browserSessionPersistence,
-  onAuthStateChanged,
 } from "firebase/auth";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/authContext";
-
-const loginUser = async () => {
-  try {
-    await setPersistence(auth, browserSessionPersistence);
-    await signInWithPopup(auth, provider);
-
-    window.location.href = "/home";
-  } catch (err) {
-    console.log(err);
-  }
-};
+import { useContext } from "react";
+import { AuthContext } from "../../recoil/authContext";
+import { useSetRecoilState } from "recoil";
+import { authState, isLoggedInState } from "../../recoil/authRecoil";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const user = useContext(AuthContext);
-  if (user) window.location.href = "/home";
+  const setAuth = useSetRecoilState(authState);
+  const setIsLoggedInState = useSetRecoilState(isLoggedInState);
+  const navigate = useNavigate();
+
+  const loginUser = async () => {
+    try {
+      const userAuth = await signInWithPopup(auth, provider);
+      if (userAuth) {
+        setAuth(userAuth.user);
+        setIsLoggedInState(true);
+        navigate("/home");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <S.LoginInner>

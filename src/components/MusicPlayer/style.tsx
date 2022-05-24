@@ -20,6 +20,9 @@ export const MusicIcons = styled.div`
   margin: 0 auto;
   @media screen and (min-width: 768px) {
     width: 30%;
+    svg {
+      font-size: 1.875rem !important;
+    }
   }
 `;
 

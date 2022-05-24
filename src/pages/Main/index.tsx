@@ -1,9 +1,13 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
+
 import * as S from "./style";
 import Logo from "../../images/logo.png";
 import MusicPlayer from "../../components/MusicPlayer";
-import { User } from "firebase/auth";
+import { getAuth, signOut, User } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState, useRecoilState } from "recoil";
+import { authState, isLoggedInState } from "../../recoil/authRecoil";
+import Clock from "../../components/Clock";
 
 interface IUser {
   accessToken: string;
@@ -26,21 +30,24 @@ interface IUser {
 }
 
 function Main() {
-  const userInfo = useContext(AuthContext);
-  const [time, setTime] = useState("0");
+  const [auth, setAuth] = useRecoilState(authState);
+  const setIsLoggedInState = useSetRecoilState(isLoggedInState);
+  const navigate = useNavigate();
 
-  const currentTime = () => {
-    const date = new Date();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const hours = String(date.getHours()).padStart(2, "0");
-    setTime(`${hours}:${minutes}`);
+  const logoutUser = async () => {
+    const answer = window.confirm("로그아웃 하시겠습니까?");
+    if (answer) {
+      try {
+        const userAuth = getAuth();
+        await signOut(userAuth);
+        setAuth(null);
+        setIsLoggedInState(false);
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
-
-  const showTime = () => {
-    setInterval(currentTime, 1000);
-  };
-
-  showTime();
 
   return (
     <S.MainInner>
@@ -50,12 +57,9 @@ function Main() {
         </S.LogoContainer>
         <S.InfoContainer>
           <S.ProfileContainer>
-            <S.ProfileImg src={userInfo?.photoURL || ""} />
+            <S.ProfileImg src={auth?.photoURL || ""} onClick={logoutUser} />
           </S.ProfileContainer>
-          <S.ClockContainer>
-            <S.ClockIcon />
-            <S.Clock>{time}</S.Clock>
-          </S.ClockContainer>
+          <Clock />
         </S.InfoContainer>
       </S.Header>
 
