@@ -8,23 +8,27 @@ import Login from "./pages/Login/index";
 import Main from "./pages/Main";
 import { authState, isLoggedInState } from "./recoil/authRecoil";
 import { auth } from "./api/firebase";
+import MetaTag from "./styles/Helmet";
 
 function Router() {
   const isLoggIn = useRecoilValue(isLoggedInState);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={isLoggIn ? <Navigate to="/home" /> : <Login />}
-        />
-        <Route
-          path="/home"
-          element={isLoggIn ? <Main /> : <Navigate to="/" />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <MetaTag />
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Routes>
+          <Route
+            path="/"
+            element={isLoggIn ? <Navigate to="/home" /> : <Login />}
+          />
+          <Route
+            path="/home"
+            element={isLoggIn ? <Main /> : <Navigate to="/" />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

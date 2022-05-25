@@ -18,6 +18,6 @@ export const ClockIcon = styled(AccessTime)`
 export const Time = styled.span`
   font-size: 1rem;
   font-weight: 700;
-  margin: 2px 0 1px 0;
+  margin-bottom: 2px;
   // 시간 들어가야함
 `;
