@@ -7,7 +7,7 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import Login from "./pages/Login/index";
 import Main from "./pages/Main";
 import { authState, isLoggedInState } from "./recoil/authRecoil";
-import { auth } from "./recoil/firebase";
+import { auth } from "./api/firebase";
 
 function Router() {
   const isLoggIn = useRecoilValue(isLoggedInState);

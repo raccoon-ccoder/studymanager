@@ -1,7 +1,7 @@
 import * as S from "./style";
 import Logo from "../../images/logo.png";
 import GoogleLogo from "../../images/googlelogo.png";
-import { auth, provider } from "../../recoil/firebase";
+import { auth, provider } from "../../api/firebase";
 import {
   setPersistence,
   signInWithPopup,

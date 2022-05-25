@@ -6,6 +6,7 @@ type AuthState = firebase.User | null;
 export const authState = atom<AuthState>({
   key: "authState",
   default: null,
+  // recoil - firebase User 객체의 경우 freeze 불가
   dangerouslyAllowMutability: true,
 });
 

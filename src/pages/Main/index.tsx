@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState, useRecoilState } from "recoil";
 import { authState, isLoggedInState } from "../../recoil/authRecoil";
 import Clock from "../../components/Clock";
+import Nav from "../../components/Nav";
+import { readAllSubjectToStudy } from "../../api/api";
+import Subject from "../../components/Subject";
 
 interface IUser {
   accessToken: string;
@@ -63,7 +66,10 @@ function Main() {
         </S.InfoContainer>
       </S.Header>
 
-      <S.MainContainer></S.MainContainer>
+      <S.MainContainer>
+        <Nav />
+        <Subject />
+      </S.MainContainer>
 
       <MusicPlayer />
     </S.MainInner>

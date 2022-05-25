@@ -1,19 +1,19 @@
-import { User } from '@firebase/auth';
-import { useEffect, useState } from 'react'; 
-import { AuthContext } from './authContext';
-import { auth } from './firebase';
+import { User } from "@firebase/auth";
+import { useEffect, useState } from "react";
+import { AuthContext } from "./authContext";
+import { auth } from "../api/firebase";
 
 const AuthProvider: React.FC = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-    useEffect(() => {
-        const user = auth.onAuthStateChanged(fbUser => {
-            setUser(fbUser);
-        });
-        return user;
-    }, []);
+  useEffect(() => {
+    const user = auth.onAuthStateChanged((fbUser) => {
+      setUser(fbUser);
+    });
+    return user;
+  }, []);
 
-    return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
