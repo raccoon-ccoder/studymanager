@@ -2,13 +2,11 @@ import { useContext, useEffect } from "react";
 import firebase from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthContext } from "./recoil/authContext";
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
-import Login from "./pages/Login/index";
-import Main from "./pages/Main";
-import { authState, isLoggedInState } from "./recoil/authRecoil";
-import { auth } from "./api/firebase";
-import MetaTag from "./styles/Helmet";
+import { useRecoilValue } from "recoil";
+import Login from "@pages/Login/index";
+import Main from "@pages/Main";
+import { isLoggedInState } from "@recoil/authRecoil";
+import MetaTag from "@styles/Helmet";
 
 function Router() {
   const isLoggIn = useRecoilValue(isLoggedInState);

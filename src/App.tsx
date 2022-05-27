@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { authState, isLoggedInState } from "./recoil/authRecoil";
-import { auth } from "./api/firebase";
-import Router from "./Router";
-import GlobalStyle from "./styles/GlobalStyle";
+import { authState, isLoggedInState } from "@recoil/authRecoil";
+import { auth } from "@api/firebase";
+import Router from "@/Router";
+import GlobalStyle from "@styles/GlobalStyle";
 
 function App() {
   const setAuth = useSetRecoilState(authState);

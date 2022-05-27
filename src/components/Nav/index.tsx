@@ -1,4 +1,4 @@
-import * as S from "./style";
+import * as S from "@components/Nav/style";
 function Nav() {
   // 클릭한 버튼에 대해서 색깔 다르게
   return (

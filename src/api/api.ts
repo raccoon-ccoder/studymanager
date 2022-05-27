@@ -1,5 +1,5 @@
 import { child, get, ref } from "firebase/database";
-import { db } from "./firebase";
+import { db } from "@api/firebase";
 
 export async function readAllSubjectToStudy(userId: string) {
   try {

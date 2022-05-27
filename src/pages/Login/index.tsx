@@ -1,16 +1,10 @@
-import * as S from "./style";
-import Logo from "../../images/logo.png";
-import GoogleLogo from "../../images/googlelogo.png";
-import { auth, provider } from "../../api/firebase";
-import {
-  setPersistence,
-  signInWithPopup,
-  browserSessionPersistence,
-} from "firebase/auth";
-import { useContext } from "react";
-import { AuthContext } from "../../recoil/authContext";
+import * as S from "@pages/Login/style";
+import Logo from "@images/logo.png";
+import GoogleLogo from "@images/googlelogo.png";
+import { auth, provider } from "@api/firebase";
+import { signInWithPopup } from "firebase/auth";
 import { useSetRecoilState } from "recoil";
-import { authState, isLoggedInState } from "../../recoil/authRecoil";
+import { authState, isLoggedInState } from "@recoil/authRecoil";
 import { useNavigate } from "react-router-dom";
 
 function Login() {

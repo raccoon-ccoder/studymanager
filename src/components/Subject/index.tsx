@@ -1,4 +1,4 @@
-import * as S from "./style";
+import * as S from "@components/Subject/style";
 
 function Subject() {
   return (

@@ -1,16 +1,13 @@
-import { useContext, useState } from "react";
-
-import * as S from "./style";
-import Logo from "../../images/logo.png";
-import MusicPlayer from "../../components/MusicPlayer";
-import { getAuth, signOut, User } from "firebase/auth";
+import * as S from "@pages/Main/style";
+import Logo from "@images/logo.png";
+import MusicPlayer from "@components/MusicPlayer";
+import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { authState, isLoggedInState } from "../../recoil/authRecoil";
-import Clock from "../../components/Clock";
-import Nav from "../../components/Nav";
-import { readAllSubjectToStudy } from "../../api/api";
-import Subject from "../../components/Subject";
+import { authState, isLoggedInState } from "@recoil/authRecoil";
+import Clock from "@components/Clock";
+import Nav from "@components/Nav";
+import Subject from "@components/Subject";
 
 interface IUser {
   accessToken: string;
