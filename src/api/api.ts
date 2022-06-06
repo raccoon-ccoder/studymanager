@@ -1,4 +1,4 @@
-import { onValue, ref } from "firebase/database";
+import { child, get, onValue, ref } from "firebase/database";
 import { db } from "@api/firebase";
 
 export interface ISubject {
@@ -12,6 +12,10 @@ export interface ISubjectTime {
   uid: string;
 }
 
+export interface ITotalTime {
+  time: number;
+}
+
 export function readAllSubjectToStudy(userId: string) {
   try {
     const subjectsArr: ISubject[] = [];
@@ -23,17 +27,12 @@ export function readAllSubjectToStudy(userId: string) {
       });
     });
     return subjectsArr;
-    // async & get() ver
-    // const dbRef = ref(db);
-    // const subjects = await get(child(dbRef, `subjects/${userId}`));
-    // if (subjects.exists()) return subjects.val();
-    // else return;
   } catch (err) {
     console.log(err);
   }
 }
 
-export async function readTodayAllSubjectTime(userId: string, today: string) {
+export function readTodayAllSubjectTime(userId: string, today: string) {
   try {
     const subjectTimesArr: ISubjectTime[] = [];
 
@@ -44,10 +43,19 @@ export async function readTodayAllSubjectTime(userId: string, today: string) {
       });
     });
     return subjectTimesArr;
-    // const dbRef = ref(db);
-    // const subjects = await get(child(dbRef, `${userId}/${today}`));
-    // if (subjects.exists()) return subjects.val();
-    // else return;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function readSubjectTotalTime(userId: string, date: string) {
+  try {
+    const subjectTotalTimeRef = ref(db);
+    const data = await get(
+      child(subjectTotalTimeRef, `${userId}/${date}/total`)
+    );
+    console.log(data.val());
+    return data.val();
   } catch (err) {
     console.log(err);
   }

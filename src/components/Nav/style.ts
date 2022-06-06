@@ -64,11 +64,7 @@ export const TimeBox = styled.div`
   }
 `;
 
-export const Hour = styled.span`
-  margin-right: 0.625rem;
-`;
-
-export const Minute = styled.span``;
+export const Hour = styled.span``;
 
 export const NavList = styled.ul`
   height: 3rem;

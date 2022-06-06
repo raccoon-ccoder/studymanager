@@ -4,6 +4,7 @@ import { authState, isLoggedInState } from "@recoil/authRecoil";
 import { auth } from "@api/firebase";
 import Router from "@/Router";
 import GlobalStyle from "@styles/GlobalStyle";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 function App() {
   const setAuth = useSetRecoilState(authState);
@@ -29,6 +30,7 @@ function App() {
     <>
       <GlobalStyle />
       <Router />
+      <ReactQueryDevtools initialIsOpen={true} />
     </>
   );
 }

@@ -8,7 +8,7 @@ export function returnToday() {
   return today;
 }
 
-export function returnTimeToString(time: number) {
+export function returnTimeToString(time: number = 0) {
   const hour = Math.floor(time / 60);
   const minute = time % 60;
 

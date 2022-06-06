@@ -11,38 +11,31 @@ function Subject() {
   const today = returnToday();
 
   // 아이디는 이메일로 변경해야 함
-  const { data: subjects, isSuccess: isSubejctsSuccess } = useQuery(
+  const { data: subjects, isLoading: isSubjectsLoading } = useQuery(
     ["subjects", "toStudy"],
-    () => {
-      return readAllSubjectToStudy(auth!.email!.replace("@gmail.com", ""));
-    }
+    () => readAllSubjectToStudy(auth!.email!.replace("@gmail.com", ""))
   );
-  const { data: subjectTimes, isSuccess: isTimesSuccess } = useQuery(
+  const { data: subjectTimes, isLoading: isTimesLoading } = useQuery(
     ["subjects", "todayTime"],
-    () => {
-      return readTodayAllSubjectTime(
-        auth!.email!.replace("@gmail.com", ""),
-        today
-      );
-    }
+    () => readTodayAllSubjectTime(auth!.email!.replace("@gmail.com", ""), today)
   );
 
   return (
     <S.SubjectContainer>
       <S.SubjectBox>
-        {isSubejctsSuccess && subjects && isTimesSuccess && subjectTimes ? (
-          subjects.map((sub) => {
-            const subjectObj = subjectTimes.find(
+        {isSubjectsLoading || isTimesLoading ? (
+          <div>Loading...</div>
+        ) : (
+          subjects?.map((sub) => {
+            const subjectObj = subjectTimes?.find(
               (time) => time.uid === sub.uid
             );
             if (subjectObj) {
-              return <SubjectItem {...subjectObj} />;
+              return <SubjectItem key={subjectObj.uid} {...subjectObj} />;
             } else {
-              return <SubjectItem {...sub} />;
+              return <SubjectItem key={sub.uid} {...sub} />;
             }
           })
-        ) : (
-          <p>Loading...</p>
         )}
       </S.SubjectBox>
       <S.AddIconBox>
