@@ -9,6 +9,7 @@ function MusicPlayer() {
 
   const musicPlayer = useRef<HTMLAudioElement>(null);
   const musicName = useRef<HTMLLabelElement>(null);
+  const mounted = useRef(false);
 
   const playMusic = () => {
     musicPlayer.current?.play();
@@ -24,7 +25,6 @@ function MusicPlayer() {
     if (musicPlayer && musicPlayer.current && musicName.current) {
       musicPlayer.current.src = require("./" + music[index].src);
       musicPlayer.current.load();
-      playMusic();
       musicName.current.innerText = `${music[index].artist} - ${music[index].title}`;
     }
   };
@@ -47,6 +47,9 @@ function MusicPlayer() {
   useEffect(() => {
     loadMusic();
     if (musicPlayer && musicPlayer.current) {
+      musicPlayer.current.volume = 0;
+    }
+    if (musicPlayer && musicPlayer.current) {
       musicPlayer.current.addEventListener("ended", () => changeNextMusic());
     }
     return () => {
@@ -57,7 +60,12 @@ function MusicPlayer() {
   }, []);
 
   useEffect(() => {
-    loadMusic();
+    if (mounted.current) {
+      loadMusic();
+      playMusic();
+    } else {
+      mounted.current = true;
+    }
   }, [index]);
 
   return (
@@ -76,7 +84,7 @@ function MusicPlayer() {
             type="range"
             min="0"
             max="100"
-            defaultValue="50"
+            defaultValue="0"
             id="volume"
             onInput={changeVolume}
           />

@@ -54,7 +54,6 @@ export async function readSubjectTotalTime(userId: string, date: string) {
     const data = await get(
       child(subjectTotalTimeRef, `${userId}/${date}/total`)
     );
-    console.log(data.val());
     return data.val();
   } catch (err) {
     console.log(err);
