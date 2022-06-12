@@ -49,6 +49,8 @@ function Main() {
     }
   };
 
+  console.log(auth?.photoURL);
+
   return (
     <S.MainInner>
       <S.Header>

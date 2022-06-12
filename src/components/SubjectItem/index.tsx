@@ -1,3 +1,4 @@
+import React from "react";
 import { returnTimeToString } from "@/util/time";
 import * as S from "@components/SubjectItem/style";
 
@@ -8,6 +9,7 @@ interface ISubjectItem {
 }
 
 function SubjectItem({ subject, uid, time = 0 }: ISubjectItem) {
+  console.log("item 렌더링");
   return (
     <S.Subject>
       <S.TitleBox>
@@ -26,4 +28,4 @@ function SubjectItem({ subject, uid, time = 0 }: ISubjectItem) {
   );
 }
 
-export default SubjectItem;
+export default React.memo(SubjectItem);

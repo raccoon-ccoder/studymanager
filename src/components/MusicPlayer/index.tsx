@@ -1,6 +1,6 @@
 import * as S from "@components/MusicPlayer/style";
 import { musics } from "@components/MusicPlayer/musics";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 function MusicPlayer() {
   const [music, setMusic] = useState(musics);

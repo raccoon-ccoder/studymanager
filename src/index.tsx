@@ -6,7 +6,13 @@ import theme from "@styles/theme";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 100 * 1000,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>

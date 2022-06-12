@@ -16,15 +16,30 @@ export interface ITotalTime {
   time: number;
 }
 
-export function readAllSubjectToStudy(userId: string) {
+// export function readAllSubjectToStudy(userId: string) {
+//   try {
+//     const subjectsArr: ISubject[] = [];
+
+//     const subjectsRef = ref(db, `subjects/${userId}`);
+//     onValue(subjectsRef, (snapshot) => {
+//       snapshot.forEach((sub) => {
+//         subjectsArr.push(sub.val());
+//       });
+//     });
+//     return subjectsArr;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
+export async function readAllSubjectToStudy(userId: string) {
   try {
     const subjectsArr: ISubject[] = [];
 
-    const subjectsRef = ref(db, `subjects/${userId}`);
-    onValue(subjectsRef, (snapshot) => {
-      snapshot.forEach((sub) => {
-        subjectsArr.push(sub.val());
-      });
+    const subjectTotalTimeRef = ref(db);
+    const data = await get(child(subjectTotalTimeRef, `subjects/${userId}`));
+    data.forEach((i) => {
+      subjectsArr.push(i.val());
     });
     return subjectsArr;
   } catch (err) {
