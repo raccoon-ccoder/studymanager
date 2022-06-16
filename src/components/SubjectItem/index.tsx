@@ -1,6 +1,8 @@
 import React from "react";
 import { returnTimeToString } from "@/util/time";
 import * as S from "@components/SubjectItem/style";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface ISubjectItem {
   subject: string;
@@ -9,7 +11,6 @@ interface ISubjectItem {
 }
 
 function SubjectItem({ subject, uid, time = 0 }: ISubjectItem) {
-  console.log("item 렌더링");
   return (
     <S.Subject>
       <S.TitleBox>
