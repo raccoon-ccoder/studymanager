@@ -8,6 +8,8 @@ import MetaTag from "@styles/Helmet";
 
 const Login = lazy(() => import("@pages/Login/index"));
 const Main = lazy(() => import("@pages/Main"));
+const Timer = lazy(() => import("@pages/Timer/index"));
+
 function Router() {
   const isLoggIn = useRecoilValue(isLoggedInState);
 
@@ -24,6 +26,10 @@ function Router() {
             <Route
               path="/home"
               element={isLoggIn ? <Main /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/timer"
+              element={isLoggIn ? <Timer /> : <Navigate to="/" />}
             />
           </Routes>
         </Suspense>

@@ -1,15 +1,13 @@
 import styled, { css } from "styled-components";
 import { PauseCircleOutline } from "@material-ui/icons";
 import { StopOutlined } from "@material-ui/icons";
+import { PlayCircleOutline } from "@material-ui/icons";
 
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
-  z-index: 1;
+
   background-color: ${(props) => props.theme.color.black};
-  visibility: hidden;
-  opacity: 0;
 
   @media screen and (min-width: 768px) {
     min-height: 650px;
@@ -38,7 +36,7 @@ export const ChartContainer = styled.div`
   align-items: center;
 `;
 
-export const Chart = styled.div`
+export const Chart = styled.div<{ percent: number }>`
   position: relative;
   width: ${(props) => props.theme.size.card.width};
   height: ${(props) => props.theme.size.card.width};
@@ -118,6 +116,10 @@ export const PauseIcon = styled(PauseCircleOutline)`
 `;
 
 export const StopIcon = styled(StopOutlined)`
+  ${icon};
+`;
+
+export const StartIcon = styled(PlayCircleOutline)`
   ${icon};
 `;
 

@@ -23,13 +23,6 @@ function Subject() {
     () => readTodayAllSubjectTime(auth!.email!.replace("@gmail.com", ""), today)
   );
 
-  if (isSubjectsLoading || isTimesLoading) {
-    console.log("로딩중");
-  } else {
-    console.log(subjects);
-    subjects?.map((i) => console.log(i));
-  }
-
   return (
     <>
       <S.SubjectContainer>
