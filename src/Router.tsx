@@ -3,16 +3,16 @@ import firebase from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isLoggedInState } from "@recoil/authRecoil";
 import MetaTag from "@styles/Helmet";
 
 const Login = lazy(() => import("@pages/Login/index"));
 const Main = lazy(() => import("@pages/Main"));
 const Timer = lazy(() => import("@pages/Timer/index"));
 
-function Router() {
-  const isLoggIn = useRecoilValue(isLoggedInState);
-
+interface IRouter {
+  isLoggedIn: boolean;
+}
+function Router({ isLoggedIn }: IRouter) {
   return (
     <>
       <MetaTag />
@@ -21,15 +21,15 @@ function Router() {
           <Routes>
             <Route
               path="/"
-              element={isLoggIn ? <Navigate to="/home" /> : <Login />}
+              element={isLoggedIn ? <Navigate to="/home" /> : <Login />}
             />
             <Route
               path="/home"
-              element={isLoggIn ? <Main /> : <Navigate to="/" />}
+              element={isLoggedIn ? <Main /> : <Navigate to="/" />}
             />
             <Route
               path="/timer"
-              element={isLoggIn ? <Timer /> : <Navigate to="/" />}
+              element={isLoggedIn ? <Timer /> : <Navigate to="/" />}
             />
           </Routes>
         </Suspense>

@@ -4,12 +4,11 @@ import GoogleLogo from "@images/googlelogo.png";
 import { auth, provider } from "@api/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useSetRecoilState } from "recoil";
-import { authState, isLoggedInState } from "@recoil/authRecoil";
+import { authState } from "@recoil/authRecoil";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const setAuth = useSetRecoilState(authState);
-  const setIsLoggedInState = useSetRecoilState(isLoggedInState);
   const navigate = useNavigate();
 
   const loginUser = async () => {
@@ -17,8 +16,6 @@ function Login() {
       const userAuth = await signInWithPopup(auth, provider);
       if (userAuth) {
         setAuth(userAuth.user);
-        setIsLoggedInState(true);
-        navigate("/home");
       }
     } catch (err) {
       console.log(err);

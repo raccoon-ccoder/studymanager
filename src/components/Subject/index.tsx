@@ -30,16 +30,6 @@ function Subject() {
           {isSubjectsLoading || isTimesLoading ? (
             <div>Loading...</div>
           ) : (
-            // subjects?.map((sub) => {
-            //   const subjectObj = subjectTimes?.find(
-            //     (time) => time.uid === sub.uid
-            //   );
-            //   if (subjectObj) {
-            //     return <SubjectItem key={subjectObj.uid} {...subjectObj} />;
-            //   } else {
-            //     return <SubjectItem key={sub.uid} {...sub} />;
-            //   }
-            // }
             subjects?.map((sub) => <SubjectItem key={sub.uid} {...sub} />)
           )}
         </S.SubjectBox>

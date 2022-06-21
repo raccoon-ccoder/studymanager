@@ -4,7 +4,7 @@ import MusicPlayer from "@components/MusicPlayer";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState, useRecoilState } from "recoil";
-import { authState, isLoggedInState } from "@recoil/authRecoil";
+import { authState } from "@recoil/authRecoil";
 import Clock from "@components/Clock";
 import Nav from "@components/Nav";
 import Subject from "@components/Subject";
@@ -31,8 +31,6 @@ interface IUser {
 
 function Main() {
   const [auth, setAuth] = useRecoilState(authState);
-  const setIsLoggedInState = useSetRecoilState(isLoggedInState);
-  const navigate = useNavigate();
 
   const logoutUser = async () => {
     const answer = window.confirm("로그아웃 하시겠습니까?");
@@ -41,8 +39,6 @@ function Main() {
         const userAuth = getAuth();
         await signOut(userAuth);
         setAuth(null);
-        setIsLoggedInState(false);
-        navigate("/");
       } catch (err) {
         console.log(err);
       }
