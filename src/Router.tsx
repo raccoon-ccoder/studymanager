@@ -7,7 +7,7 @@ import MetaTag from "@styles/Helmet";
 
 const Login = lazy(() => import("@pages/Login/index"));
 const Main = lazy(() => import("@pages/Main"));
-const Timer = lazy(() => import("@pages/Timer/index"));
+const StopWatch = lazy(() => import("@/pages/StopWatch/index"));
 
 interface IRouter {
   isLoggedIn: boolean;
@@ -28,8 +28,8 @@ function Router({ isLoggedIn }: IRouter) {
               element={isLoggedIn ? <Main /> : <Navigate to="/" />}
             />
             <Route
-              path="/timer"
-              element={isLoggedIn ? <Timer /> : <Navigate to="/" />}
+              path="/stopwatch"
+              element={isLoggedIn ? <StopWatch /> : <Navigate to="/" />}
             />
           </Routes>
         </Suspense>

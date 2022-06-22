@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { PauseCircleOutline } from "@material-ui/icons";
-import { StopOutlined } from "@material-ui/icons";
+import { StopRounded } from "@material-ui/icons";
 import { PlayCircleOutline } from "@material-ui/icons";
 
 export const Wrapper = styled.div`
@@ -54,13 +54,13 @@ export const Chart = styled.div<{ percent: number }>`
     inset: 0;
     background: radial-gradient(
           farthest-side,
-          ${(props) => props.theme.color.yellow} 98%,
+          ${(props) => props.theme.color.cLightYellow} 98%,
           #0000
         )
         top/ ${(props) => props.theme.size.card.border}
         ${(props) => props.theme.size.card.border} no-repeat,
       conic-gradient(
-        ${(props) => props.theme.color.yellow} 0%,
+        ${(props) => props.theme.color.cLightYellow} 0%,
         ${(props) => props.theme.color.yellow}
           calc(${(props) => props.percent}*1%),
         #2b2e36 calc(${(props) => props.percent}*1%) 100%
@@ -78,7 +78,7 @@ export const Chart = styled.div<{ percent: number }>`
   }
 
   ::after {
-    transform: rotate(calc(var(--c-p) * 3.6deg))
+    transform: rotate(calc(${(props) => props.percent} * 3.6deg))
       translateY(calc(50% - ${(props) => props.theme.size.card.width} / 2));
     content: "";
     position: absolute;
@@ -112,15 +112,24 @@ const icon = css`
 `;
 
 export const PauseIcon = styled(PauseCircleOutline)`
-  ${icon};
+  && {
+    ${icon};
+  }
 `;
 
-export const StopIcon = styled(StopOutlined)`
-  ${icon};
+export const StopIcon = styled(StopRounded)`
+  && {
+    ${icon};
+    border: 4px solid ${(props) => props.theme.color.yellow};
+    border-radius: 50%;
+    font-size: 38px;
+  }
 `;
 
 export const StartIcon = styled(PlayCircleOutline)`
-  ${icon};
+  && {
+    ${icon};
+  }
 `;
 
 export const IconName = styled.span`

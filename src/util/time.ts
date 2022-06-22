@@ -14,3 +14,8 @@ export function returnTimeToString(time: number = 0) {
 
   return `${hour}h ${minute}m`;
 }
+
+export function returnTimeToPercent(time: number) {
+  const percent = ((time % 60) / 60) * 100;
+  return percent;
+}

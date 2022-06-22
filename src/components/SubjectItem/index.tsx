@@ -21,7 +21,7 @@ function SubjectItem({ subject, uid, time = 0 }: ISubjectItem) {
           <S.Time>{returnTimeToString(time)}</S.Time>
         </S.TimeArea>
         <S.IconsArea>
-          <Link to="/timer" state={{ subject, uid, time }}>
+          <Link to="/stopwatch" state={{ subject, uid, time }}>
             <S.TimerIcon />
           </Link>
 
