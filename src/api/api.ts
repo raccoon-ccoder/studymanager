@@ -1,4 +1,4 @@
-import { child, get, onValue, ref } from "firebase/database";
+import { child, get, onValue, ref, update } from "firebase/database";
 import { db } from "@api/firebase";
 
 export interface ISubject {
@@ -70,6 +70,32 @@ export async function readSubjectTotalTime(userId: string, date: string) {
       child(subjectTotalTimeRef, `${userId}/${date}/total`)
     );
     return data.val();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+interface IUpdateSubject {
+  userId: string;
+  date: string;
+  time: number;
+  uid: string;
+  name: string;
+}
+
+export async function updateSubjectTime({
+  userId,
+  date,
+  time,
+  uid,
+  name,
+}: IUpdateSubject) {
+  try {
+    await update(ref(db, `${userId}/${date}/${uid}`), {
+      subject: name,
+      uid: uid,
+      time: time,
+    });
   } catch (err) {
     console.log(err);
   }

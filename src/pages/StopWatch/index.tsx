@@ -1,7 +1,14 @@
-import { returnTimeToPercent, returnTimeToString } from "@/util/time";
+import {
+  returnTimeToPercent,
+  returnTimeToString,
+  returnToday,
+} from "@/util/time";
 import * as S from "@/pages/StopWatch/style";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/recoil/authRecoil";
+import { updateSubjectTime } from "@/api/api";
 
 interface ISubjectItem {
   state: {
@@ -12,10 +19,13 @@ interface ISubjectItem {
 }
 
 function StopWatch() {
+  const auth = useRecoilValue(authState);
   const [isDoing, setIsDoing] = useState(true);
   const [time, setTime] = useState(0);
   const { state } = useLocation() as ISubjectItem;
   const tickTime = useRef<NodeJS.Timer | null>(null);
+  const date = returnToday();
+  const navigate = useNavigate();
 
   const stoptime = () => {
     if (isDoing) {
@@ -32,6 +42,18 @@ function StopWatch() {
       );
     }
     setIsDoing(true);
+  };
+
+  const onEndTime = () => {
+    const subjectObj = {
+      userId: auth!.email!.replace("@gmail.com", ""),
+      date: date,
+      time: time,
+      uid: state.uid,
+      name: state.subject,
+    };
+    updateSubjectTime(subjectObj);
+    navigate("/home");
   };
 
   useEffect(() => {
@@ -70,7 +92,7 @@ function StopWatch() {
           )}
         </S.IconBox>
         <S.IconBox>
-          <S.StopIcon />
+          <S.StopIcon onClick={onEndTime} />
           <S.IconName>Stop</S.IconName>
         </S.IconBox>
       </S.IconContainer>
